@@ -2,508 +2,458 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Club 84 | Complete Master Plan & Build Checklist – Reggio Calabria · Avondale FC</title>
-  <!-- Font Awesome 6 (free) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts: Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club 84 | Master Plan & Build Checklist – Avondale FC · Reggio Calabria</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', sans-serif;
       background: #eef2f5;
       color: #1e2a3e;
       line-height: 1.5;
-      padding: 2rem 1.5rem;
+      padding: 2rem 1rem;
     }
-
-    /* main container */
     .master-container {
       max-width: 1400px;
       margin: 0 auto;
       background: white;
       border-radius: 2rem;
-      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.15);
+      box-shadow: 0 25px 45px -15px rgba(0,0,0,0.18);
       overflow: hidden;
     }
-
-    /* royal blue header with italian tricolor bar */
     .hero {
-      background: linear-gradient(135deg, #0055A4 0%, #003f7f 100%);
+      background: linear-gradient(135deg, #0055A4 0%, #003366 100%);
       color: white;
-      padding: 2rem 2.5rem;
+      padding: 2.8rem 3rem;
       position: relative;
     }
-
     .hero::after {
       content: "";
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, #009246 0%, #009246 33%, #ffffff 33%, #ffffff 66%, #ce2b37 66%, #ce2b37 100%);
+      bottom: 0; left: 0;
+      width: 100%; height: 8px;
+      background: linear-gradient(90deg, #009246 0%, #009246 33%, #fff 33%, #fff 66%, #ce2b37 66%, #ce2b37 100%);
     }
-
     .hero h1 {
-      font-size: 2.8rem;
+      font-size: 2.85rem;
       font-weight: 800;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
-
-    .hero h1 i {
-      margin-right: 0.75rem;
-    }
-
     .hero .tagline {
-      font-size: 1.1rem;
-      opacity: 0.92;
-      margin-top: 0.3rem;
+      font-size: 1.15rem;
+      opacity: 0.93;
+      margin-top: 0.4rem;
     }
-
     .hosted-by {
-      background: rgba(255,255,255,0.15);
-      display: inline-block;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      margin-top: 0.8rem;
-      backdrop-filter: blur(4px);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(6px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    /* navigation tabs */
+    /* Tabs */
     .tabs {
       display: flex;
       flex-wrap: wrap;
       background: #f8fafc;
       border-bottom: 1px solid #e2e8f0;
       padding: 0 1.5rem;
-      gap: 0.25rem;
+      gap: 0.3rem;
     }
-
     .tab-btn {
+      padding: 1.1rem 1.9rem;
       background: transparent;
       border: none;
-      padding: 1rem 1.8rem;
       font-weight: 600;
-      font-size: 0.95rem;
+      color: #334155;
       cursor: pointer;
+      border-radius: 12px 12px 0 0;
       transition: all 0.2s;
-      color: #2c3e50;
-      border-radius: 2rem 2rem 0 0;
     }
-
-    .tab-btn i {
-      margin-right: 0.5rem;
-    }
-
+    .tab-btn:hover { background: #f1f5f9; }
     .tab-btn.active {
       background: white;
       color: #0055A4;
-      border-bottom: 3px solid #ce2b37;
+      border-bottom: 4px solid #ce2b37;
     }
 
     .tab-pane {
       display: none;
-      padding: 2rem 2.5rem;
-      animation: fadeIn 0.25s ease;
+      padding: 2.5rem 3rem;
+      animation: fadeIn 0.3s ease forwards;
     }
+    .tab-pane.active-pane { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .tab-pane.active-pane {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-
-    /* section styles */
+    /* Content styles */
     .section {
-      margin-bottom: 2.5rem;
-      border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 2rem;
+      margin-bottom: 3rem;
     }
-
-    .section:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
+    .section:last-child { margin-bottom: 0; }
     .section-title {
-      font-size: 1.7rem;
+      font-size: 1.75rem;
       font-weight: 700;
-      margin-bottom: 1.2rem;
       color: #0055A4;
+      margin-bottom: 1.3rem;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.8rem;
+      padding-left: 1.1rem;
       border-left: 5px solid #ce2b37;
-      padding-left: 1rem;
     }
 
     .grid-2col {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.8rem;
     }
-
     .card {
-      background: #ffffff;
-      border-radius: 1.2rem;
-      padding: 1.2rem 1.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      border: 1px solid #eef2f6;
-      transition: transform 0.1s ease;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      transition: transform 0.2s;
     }
-
-    .card h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: #0055A4;
-    }
+    .card:hover { transform: translateY(-4px); }
 
     .metric {
-      font-size: 2rem;
+      font-size: 2.4rem;
       font-weight: 800;
       color: #ce2b37;
-      line-height: 1.2;
+      margin-bottom: 0.4rem;
     }
 
     .highlight {
       background: #f0f7ff;
-      border-left: 4px solid #0055A4;
-      padding: 0.8rem 1.2rem;
-      border-radius: 0.8rem;
-      margin: 1rem 0;
-    }
-
-    .menu-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin: 1rem 0;
-    }
-
-    .menu-category {
-      background: #f8fafc;
-      border-radius: 2rem;
-      padding: 0.3rem 1rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #0055A4;
-      border: 1px solid #dce3ec;
-    }
-
-    .code-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #f9fafc;
+      border-left: 5px solid #0055A4;
+      padding: 1.2rem 1.5rem;
       border-radius: 1rem;
-      overflow: hidden;
+      margin: 1.5rem 0;
     }
 
-    .code-table th, .code-table td {
-      padding: 0.75rem 1rem;
-      text-align: left;
-      border-bottom: 1px solid #e2e8f0;
-    }
-
-    .code-table th {
-      background: #e6f0ff;
-      color: #0055A4;
-      font-weight: 700;
-    }
-
-    .badge {
-      background: #0055A4;
-      color: white;
-      border-radius: 60px;
-      padding: 0.2rem 0.8rem;
-      font-size: 0.7rem;
-      font-weight: 600;
-      display: inline-block;
-    }
-
-    .tier {
-      background: #fefefe;
-      border-radius: 1.2rem;
-      padding: 1.2rem;
-      text-align: center;
-      border: 1px solid #dce3ec;
-    }
-
-    .price {
-      font-size: 1.7rem;
-      font-weight: 800;
-      color: #1f5e3a;
-      margin: 0.5rem 0;
-    }
-
-    .discount-badge {
-      background: #e6f0ff;
-      border-radius: 40px;
-      padding: 0.2rem 0.8rem;
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
+    /* Checklist */
     .checklist {
       list-style: none;
     }
-
     .checklist li {
-      margin-bottom: 0.75rem;
       display: flex;
       align-items: flex-start;
-      gap: 0.8rem;
+      gap: 1rem;
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 12px;
+      transition: background 0.2s;
     }
+    .checklist li:hover { background: #f8fafc; }
 
-    .checklist li i.far, .checklist li i.fas {
-      color: #0055A4;
-      font-size: 1.2rem;
-      margin-top: 0.1rem;
+    .checkbox {
+      width: 28px; height: 28px;
+      border: 3px solid #0055A4;
+      border-radius: 8px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+    .checkbox.checked {
+      background: #0055A4;
+      border-color: #0055A4;
+    }
+    .checkbox i {
+      color: white;
+      font-size: 18px;
+      opacity: 0;
+      transition: all 0.25s;
+    }
+    .checkbox.checked i { opacity: 1; }
+
+    .progress-container {
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 9999px;
+      margin: 1.5rem 0;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00c853, #64dd17);
+      width: 0%;
+      transition: width 0.4s ease;
     }
 
     footer {
       background: #f8fafc;
-      padding: 1rem 2rem;
+      padding: 1.4rem 3rem;
       text-align: center;
+      color: #64748b;
+      font-size: 0.85rem;
       border-top: 1px solid #e2e8f0;
-      font-size: 0.75rem;
-      color: #4b5563;
     }
 
-    @media (max-width: 700px) {
-      .hero h1 { font-size: 2rem; }
-      .tab-btn { padding: 0.7rem 1rem; font-size: 0.8rem; }
-      .tab-pane { padding: 1.2rem; }
-      .section-title { font-size: 1.4rem; }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.1rem; }
+      .tab-btn { padding: 0.9rem 1.1rem; font-size: 0.9rem; }
+      .tab-pane { padding: 1.5rem; }
     }
   </style>
 </head>
 <body>
+
 <div class="master-container">
+  <!-- Hero -->
   <div class="hero">
     <h1><i class="fas fa-futbol"></i> Club 84</h1>
-    <p class="tagline">President & Social Club · Avondale FC @ Reggio Calabria Club, Parkville</p>
-    <p class="tagline" style="font-size:0.9rem;"><i class="fas fa-map-marker-alt"></i> Avenger Park precinct · 476 Brunswick Road</p>
+    <p class="tagline">President & Social Club • Avondale FC at Reggio Calabria Club, Parkville</p>
+    <p class="tagline" style="font-size:0.95rem; margin-top:0.2rem;">
+      <i class="fas fa-map-marker-alt"></i> Avenger Park Precinct • 476 Brunswick Road
+    </p>
     <div class="hosted-by">
-      <i class="fas fa-building"></i> Hosted by the Members Lounge · Current licensee at Reggio Calabria Club
+      <i class="fas fa-building"></i> Hosted by The Members Lounge – Current Licensee at Reggio Calabria Club
     </div>
   </div>
 
+  <!-- Tabs -->
   <div class="tabs">
     <button class="tab-btn active" data-tab="coding"><i class="fas fa-qrcode"></i> Coding System</button>
     <button class="tab-btn" data-tab="masterplan"><i class="fas fa-chart-line"></i> Master Plan</button>
-    <button class="tab-btn" data-tab="atmosphere"><i class="fas fa-lightbulb"></i> Nightclub & Heritage</button>
-    <button class="tab-btn" data-tab="membership"><i class="fas fa-id-card"></i> Membership & Honor</button>
-    <button class="tab-btn" data-tab="education"><i class="fas fa-graduation-cap"></i> Education & Soccer Uni</button>
+    <button class="tab-btn" data-tab="atmosphere"><i class="fas fa-lightbulb"></i> Atmosphere & Heritage</button>
+    <button class="tab-btn" data-tab="membership"><i class="fas fa-id-card"></i> Membership</button>
+    <button class="tab-btn" data-tab="education"><i class="fas fa-graduation-cap"></i> Soccer University</button>
     <button class="tab-btn" data-tab="checklist"><i class="fas fa-clipboard-list"></i> Build Checklist</button>
   </div>
 
-  <!-- ==================== TAB 1: CODING SYSTEM ==================== -->
+  <!-- TAB 1: Coding System -->
   <div id="coding-pane" class="tab-pane active-pane">
     <div class="section">
       <div class="section-title"><i class="fas fa-sitemap"></i> Official Club 84 Coding System</div>
-      <p>Hierarchical alphanumeric codes for bookings, signage, inventory, and maintenance. Format: <code>[Site]-[Club]-[SpaceType][Identifier]</code>.</p>
-      <table class="code-table" style="margin-top: 1rem;">
+      <p><strong>Format:</strong> <code>AVP-84-[Type]-[Identifier]</code></p>
+      <table style="width:100%; border-collapse:collapse; margin-top:1.5rem; background:#f9fafc; border-radius:12px; overflow:hidden;">
         <thead>
-          <tr><th>Entity</th><th>Code</th><th>Description</th></tr>
+          <tr style="background:#e6f0ff;">
+            <th style="padding:1rem; text-align:left;">Entity</th>
+            <th style="padding:1rem; text-align:left;">Code</th>
+            <th style="padding:1rem; text-align:left;">Description</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td>Entire facility</td><td><strong>AVP-84</strong></td><td>Club 84 at Avenger Park</td></tr>
-          <tr><td>Public sports bar</td><td><strong>AVP-84-BAR-SB</strong></td><td>Open to public, projector, TV screens</td></tr>
-          <tr><td>Private bar (members)</td><td><strong>AVP-84-BAR-PVT</strong></td><td>Permanent TVs, billiard tables, limited kitchen</td></tr>
-          <tr><td>Doyle Street Room</td><td><strong>AVP-84-RM-DSR</strong></td><td>Soundproofed cocktail room (80‑100 pax)</td></tr>
-          <tr><td>AJ Davis Reserve Room</td><td><strong>AVP-84-RM-AJR</strong></td><td>Soundproofed cocktail room (80‑100 pax)</td></tr>
-          <tr><td>Billiard table</td><td><strong>AVP-84-BAR-PVT-BILLIARD-01</strong></td><td>Reservation optional</td></tr>
-          <tr><td>Bistro area</td><td><strong>AVP-84-BISTRO</strong></td><td>Casual dining in public zone</td></tr>
-          <tr><td>Heritage wall / media wall</td><td><strong>AVP-84-HERITAGE</strong></td><td>Memorabilia display + red carpet photo booth</td></tr>
+          <tr><td style="padding:1rem; border-top:1px solid #e2e8f0;">Entire facility</td><td style="padding:1rem; border-top:1px solid #e2e8f0;"><strong>AVP-84</strong></td><td style="padding:1rem; border-top:1px solid #e2e8f0;">Club 84 at Avenger Park</td></tr>
+          <tr><td style="padding:1rem;">Public Sports Bar</td><td style="padding:1rem;"><strong>AVP-84-BAR-SB</strong></td><td style="padding:1rem;">Open to public, TVs & projector</td></tr>
+          <tr><td style="padding:1rem;">Private Members Bar</td><td style="padding:1rem;"><strong>AVP-84-BAR-PVT</strong></td><td style="padding:1rem;">Billiards, private bar</td></tr>
+          <tr><td style="padding:1rem;">Doyle Street Room</td><td style="padding:1rem;"><strong>AVP-84-RM-DSR</strong></td><td style="padding:1rem;">Soundproofed (80-100 pax)</td></tr>
+          <tr><td style="padding:1rem;">AJ Davis Reserve Room</td><td style="padding:1rem;"><strong>AVP-84-RM-AJR</strong></td><td style="padding:1rem;">Soundproofed (80-100 pax)</td></tr>
         </tbody>
       </table>
-      <div class="highlight" style="margin-top: 1rem;">
-        <i class="fas fa-info-circle"></i> All codes are used in the booking system, staff dashboards, and maintenance tickets.
-      </div>
     </div>
   </div>
 
-  <!-- ==================== TAB 2: MASTER PLAN ==================== -->
+  <!-- TAB 2: Master Plan -->
   <div id="masterplan-pane" class="tab-pane">
     <div class="section">
-      <div class="section-title"><i class="fas fa-calendar-alt"></i> Match Day Games & Operations</div>
+      <div class="section-title"><i class="fas fa-calendar-alt"></i> Match Day & Operations</div>
       <div class="grid-2col">
-        <div class="card"><div class="metric">13–36</div><h3>Match days per year</h3><p>Minimum 13 guaranteed, scalable to 36 based on bookings & minimum spend.</p><span class="badge">Hot food for players</span></div>
-        <div class="card"><div class="metric">2</div><h3>Soundproofed rooms</h3><p>Each 80‑100 guests, private bars, DJ booths, separate entrances.</p></div>
-        <div class="card"><div class="metric">2</div><h3>Public areas</h3><p>Sports bar (TV + projector) and bistro area – open weekends & match days.</p></div>
+        <div class="card"><div class="metric">13–36</div><h3>Match Days per Year</h3><p>Minimum 13 guaranteed. Scalable based on bookings and minimum spend.</p></div>
+        <div class="card"><div class="metric">2</div><h3>Soundproofed Private Rooms</h3><p>Each holds 80–100 guests with private bars and separate entrances.</p></div>
+        <div class="card"><div class="metric">2</div><h3>Public Zones</h3><p>Sports bar (big screens) + casual bistro area.</p></div>
       </div>
       <div class="highlight">
-        <strong><i class="fas fa-utensils"></i> Comprehensive cocktail menu (all venues):</strong>
-        <div class="menu-grid">
-          <span class="menu-category">🍕 Wood-fired pizzas</span> <span class="menu-category">🍘 Arancini</span> <span class="menu-category">🍝 Meatballs</span>
-          <span class="menu-category">🌭 Sausages</span> <span class="menu-category">🥪 Panini</span> <span class="menu-category">🧀 Antipasto boards</span>
-          <span class="menu-category">🍗 Chicken skewers</span> <span class="menu-category">🦐 Prawn skewers</span> <span class="menu-category">🌯 Spring rolls</span>
-          <span class="menu-category">🍚 Rice paper rolls</span> <span class="menu-category">🐟 Sashimi</span> <span class="menu-category">🍣 Sushi</span>
-          <span class="menu-category">🍰 Dessert section</span> <span class="menu-category">🥒 Pickled vegetables</span> <span class="menu-category">🧀 Cheeses</span>
-        </div>
+        <strong>Cocktail & Finger Food Menu Highlights:</strong><br>
+        Wood-fired pizzas • Arancini • Meatballs • Antipasto • Chicken & prawn skewers • Sushi • Desserts
       </div>
-      <p><strong>Rest of year:</strong> Private rooms available for bookings only (cocktail / nightclub setup). Minimum spend applies.</p>
     </div>
   </div>
 
-  <!-- ==================== TAB 3: NIGHTCLUB & HERITAGE ==================== -->
+  <!-- TAB 3: Atmosphere & Heritage -->
   <div id="atmosphere-pane" class="tab-pane">
     <div class="section">
-      <div class="section-title"><i class="fas fa-lightbulb"></i> Nightclub Atmosphere & Lighting</div>
+      <div class="section-title"><i class="fas fa-palette"></i> Nightclub Atmosphere</div>
       <div class="grid-2col">
-        <div class="card"><h3><i class="fas fa-palette"></i> Colour scheme</h3><p><span style="background:#0055A4; display:inline-block; width:20px; height:20px; border-radius:4px;"></span> Royal blue (#0055A4) primary · <span style="background:#009246; width:20px; height:20px; display:inline-block;"></span> Green · <span style="background:#ffffff; border:1px solid #ccc; width:20px; height:20px; display:inline-block;"></span> White · <span style="background:#ce2b37; width:20px; height:20px; display:inline-block;"></span> Red (Italian tricolor accents)</p></div>
-        <div class="card"><h3><i class="fas fa-lightbulb"></i> LED & disco lighting</h3><p>RGB wash lights, moving heads, strobes, programmable mood lighting. Dim‑to‑warm zones in bistro.</p></div>
-        <div class="card"><h3><i class="fas fa-volume-up"></i> Surround sound</h3><p>Zone‑controlled high‑end speakers, subwoofers, acoustic treatment – no bleed between rooms.</p></div>
-        <div class="card"><h3><i class="fas fa-chair"></i> Fixtures & fittings</h3><p>Black ceilings, recessed LED strips, mirrored accents, illuminated bar counters.</p></div>
+        <div class="card"><strong>Royal Blue (#0055A4)</strong> primary colour with Italian tricolor accents (Green-White-Red)</div>
+        <div class="card">Full RGB LED lighting package + moving heads, strobes, and mood lighting</div>
+        <div class="card">Zone-controlled surround sound with acoustic treatment (no bleed between rooms)</div>
+        <div class="card">Black ceilings, mirrored accents, illuminated bars, recessed LED strips</div>
       </div>
     </div>
     <div class="section">
-      <div class="section-title"><i class="fas fa-archive"></i> Avondale Heritage Wall & Interactive Media Wall</div>
+      <div class="section-title"><i class="fas fa-archive"></i> Avondale Heritage & Media Wall</div>
       <div class="highlight">
-        <p><strong>Request to Avondale FC:</strong> Contribute past shirts, trophies, flags, and memorabilia for a permanent Heritage Wall in the public area.</p>
-        <p><strong>Interactive Media Wall & Red Carpet:</strong> Raised platform with red carpet, branded backdrop, professional lighting, and an automated photo booth. Children and guests can pose as soccer celebrities; photos post instantly to social media with #Club84.</p>
-        <p><strong>Goal:</strong> Enhance Avondale’s public visibility and create a viral family‑friendly attraction.</p>
+        <p><strong>Request to Avondale FC:</strong> Contribute historical shirts, trophies, flags and memorabilia.</p>
+        <p>Built-in red carpet platform, professional lighting, automated photo booth with instant #Club84 sharing.</p>
       </div>
     </div>
   </div>
 
-  <!-- ==================== TAB 4: MEMBERSHIP & HONOR ==================== -->
+  <!-- TAB 4: Membership -->
   <div id="membership-pane" class="tab-pane">
     <div class="section">
-      <div class="section-title"><i class="fas fa-id-card"></i> Membership Tiers & Discounts</div>
+      <div class="section-title"><i class="fas fa-id-card"></i> Membership Tiers</div>
       <div class="grid-2col">
-        <div class="tier"><i class="fas fa-crown"></i><h3>Life Member</h3><div class="price">$10,000</div><div class="discount-badge">20% off F&B</div><p>Name on Life Members board</p></div>
-        <div class="tier"><i class="fas fa-gem"></i><h3>Foundation Member</h3><div class="price">$5,000</div><div class="discount-badge">10% off F&B</div><p>Foundation recognition</p></div>
-        <div class="tier"><i class="fas fa-id-card"></i><h3>Generic Member</h3><div class="price">Annual</div><div class="discount-badge">10% off F&B</div><p>Reggio Calabria or Avondale FC member</p></div>
+        <div class="card" style="text-align:center;">
+          <i class="fas fa-crown" style="font-size:2.5rem; color:#ce2b37;"></i>
+          <h3>Life Member</h3>
+          <div style="font-size:2rem; font-weight:800; color:#1f5e3a;">$10,000</div>
+          <p>20% F&B discount + name on Life Members board</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <i class="fas fa-gem" style="font-size:2.5rem; color:#0055A4;"></i>
+          <h3>Foundation Member</h3>
+          <div style="font-size:2rem; font-weight:800; color:#1f5e3a;">$5,000</div>
+          <p>10% F&B discount + foundation recognition</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <i class="fas fa-id-card" style="font-size:2.5rem; color:#64748b;"></i>
+          <h3>Club Member</h3>
+          <div style="font-size:1.6rem; font-weight:700;">Annual Fee</div>
+          <p>10% F&B discount</p>
+        </div>
       </div>
       <div class="highlight">
-        <i class="fas fa-credit-card"></i> <strong>Club 84 Relury Club Card</strong> – access to private soundproofed rooms + automatic discounts. All membership revenue goes directly to <strong>Avondale FC</strong>. Club 84 hosts the Honor Board on Avondale’s behalf.
-      </div>
-    </div>
-    <div class="section">
-      <div class="section-title"><i class="fas fa-medal"></i> Honor Board (inside restaurant)</div>
-      <div class="grid-2col">
-        <div class="card"><i class="fas fa-gavel"></i> Presidents</div>
-        <div class="card"><i class="fas fa-handshake"></i> Vice Presidents</div>
-        <div class="card"><i class="fas fa-coins"></i> Treasurers</div>
-        <div class="card"><i class="fas fa-star-of-life"></i> Life Members</div>
+        All membership revenue goes directly to <strong>Avondale FC</strong>. Club 84 hosts the Honor Board.
       </div>
     </div>
   </div>
 
-  <!-- ==================== TAB 5: EDUCATION & SOCCER UNIVERSITY ==================== -->
+  <!-- TAB 5: Education -->
   <div id="education-pane" class="tab-pane">
     <div class="section">
-      <div class="section-title"><i class="fas fa-graduation-cap"></i> Educational & Soccer University Use</div>
+      <div class="section-title"><i class="fas fa-graduation-cap"></i> Soccer University & Education Programs</div>
       <div class="grid-2col">
-        <div class="card"><h3><i class="fas fa-child"></i> Children’s training (e.g. 80/20 with Moe)</h3><p>Weekday sessions using the soundproofed rooms as classrooms/training hubs.</p><span class="badge">Parents wait in bar/bistro</span></div>
-        <div class="card"><h3><i class="fas fa-futbol"></i> Soccer University for Avondale players</h3><p>Dedicated weekly tactical analysis, video review, and coaching for Avondale’s entire senior and youth squads.</p></div>
-        <div class="card"><h3><i class="fas fa-chalkboard"></i> Equipment & tech</h3><p>Whiteboards, video analysis screens, Wi‑Fi, and booking system priority for Avondale programs.</p></div>
-        <div class="card"><h3><i class="fas fa-glass-cheers"></i> Parent waiting area</h3><p>While children learn, parents can enjoy drinks and the full cocktail menu in the sports bar / bistro – driving additional revenue.</p></div>
+        <div class="card">Children’s training sessions (e.g. 80/20 with Moe) in soundproofed rooms</div>
+        <div class="card">Weekly tactical analysis & video review for Avondale senior & youth squads</div>
+        <div class="card">Whiteboards, large screens, Wi-Fi + priority booking for Avondale programs</div>
+        <div class="card">Parents relax in the sports bar/bistro while children train – extra revenue</div>
       </div>
       <div class="highlight">
-        <i class="fas fa-clock"></i> <strong>Schedule:</strong> Weekday afternoons / evenings. No venue hire fee for Avondale’s official programs; bar/food sales from parents contribute to sustainability.
+        No venue hire fee for official Avondale programs. Revenue generated from parent food & drink sales.
       </div>
     </div>
   </div>
 
-  <!-- ==================== TAB 6: BUILD CHECKLIST ==================== -->
+  <!-- TAB 6: Build Checklist (Interactive) -->
   <div id="checklist-pane" class="tab-pane">
     <div class="section">
-      <div class="section-title"><i class="fas fa-clipboard-list"></i> Committee Build Completion Checklist</div>
+      <div class="section-title"><i class="fas fa-clipboard-list"></i> Build Completion Checklist</div>
+      
+      <div style="margin-bottom:1.5rem;">
+        <strong>Overall Progress</strong>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
       <div class="grid-2col">
         <div class="card">
           <h3><i class="fas fa-palette"></i> Colour & Atmosphere</h3>
-          <ul class="checklist">
-            <li><i class="far fa-square"></i> Royal blue (#0055A4) approved & applied</li>
-            <li><i class="far fa-square"></i> Italian tricolor accents installed</li>
-            <li><i class="far fa-square"></i> LED/disco lighting & surround sound</li>
-            <li><i class="far fa-square"></i> Fixtures & fittings finalised</li>
+          <ul class="checklist" id="checklist-atmosphere">
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Royal blue (#0055A4) primary colour applied</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Italian tricolor accents installed</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Full nightclub lighting & sound system</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Fixtures, ceilings & bar finishes complete</li>
           </ul>
         </div>
+
         <div class="card">
           <h3><i class="fas fa-archive"></i> Heritage & Media Wall</h3>
-          <ul class="checklist">
-            <li><i class="far fa-square"></i> Avondale contributes memorabilia (shirts, trophies, flags)</li>
-            <li><i class="far fa-square"></i> Display cabinets & lighting installed</li>
-            <li><i class="far fa-square"></i> Red carpet platform & photo booth built</li>
-            <li><i class="far fa-square"></i> Social media integration active</li>
+          <ul class="checklist" id="checklist-heritage">
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Avondale FC memorabilia received</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Display cabinets & lighting installed</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Red carpet platform & photo booth built</li>
           </ul>
         </div>
+
         <div class="card">
           <h3><i class="fas fa-id-card"></i> Membership & Honor Board</h3>
-          <ul class="checklist">
-            <li><i class="far fa-square"></i> Life / Foundation / Generic tiers approved</li>
-            <li><i class="far fa-square"></i> Club 84 Relury Club Card designed</li>
-            <li><i class="far fa-square"></i> Honor Board installed (Presidents, VPs, Treasurers, Life Members)</li>
-            <li><i class="far fa-square"></i> Revenue agreement: all membership fees to Avondale FC</li>
+          <ul class="checklist" id="checklist-membership">
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Life, Foundation & Club tiers approved</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Club 84 Relury Card designed</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Honor Board installed inside restaurant</li>
           </ul>
         </div>
+
         <div class="card">
-          <h3><i class="fas fa-graduation-cap"></i> Education & Soccer Uni</h3>
-          <ul class="checklist">
-            <li><i class="far fa-square"></i> 80/20 with Moe program scheduled</li>
-            <li><i class="far fa-square"></i> Soccer University curriculum & tech installed</li>
-            <li><i class="far fa-square"></i> Parent waiting area / bar integration</li>
+          <h3><i class="fas fa-graduation-cap"></i> Education Programs</h3>
+          <ul class="checklist" id="checklist-education">
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Children’s training schedule confirmed</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Soccer University tech (screens, whiteboards) installed</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Parent bar integration ready</li>
           </ul>
         </div>
+
         <div class="card">
-          <h3><i class="fas fa-coins"></i> Funding & Contributions</h3>
-          <ul class="checklist">
-            <li><i class="far fa-square"></i> Avondale contribution to public area (stylish finish)</li>
-            <li><i class="far fa-square"></i> Members Lounge funds internal area</li>
-            <li><i class="far fa-square"></i> Match day model (13–36 games) with minimum spend</li>
-            <li><i class="far fa-square"></i> Junior birthday parties (10% discount for Avondale juniors)</li>
+          <h3><i class="fas fa-coins"></i> Funding & Operations</h3>
+          <ul class="checklist" id="checklist-funding">
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Avondale contribution to public area confirmed</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Members Lounge funding for internal fit-out complete</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Match day model (13–36 games) agreed</li>
           </ul>
         </div>
+
         <div class="card">
           <h3><i class="fas fa-check-double"></i> Final Approvals</h3>
-          <ul class="checklist">
-            <li><i class="far fa-square"></i> Avondale FC Committee resolution</li>
-            <li><i class="far fa-square"></i> Reggio Calabria Club Committee resolution</li>
-            <li><i class="far fa-square"></i> Licensing & compliance (soundproofing, trading)</li>
-            <li><i class="far fa-square"></i> Joint build sign‑off</li>
+          <ul class="checklist" id="checklist-approvals">
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Avondale FC Committee formal resolution</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Reggio Calabria Club Committee resolution</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> All licensing & compliance obtained</li>
+            <li><div class="checkbox" data-checked="false"><i class="fas fa-check"></i></div> Joint final inspection & handover</li>
           </ul>
         </div>
       </div>
-      <div class="highlight" style="margin-top: 1rem;">
-        <i class="fas fa-flag-checkered"></i> Once all items are ticked, Club 84 will become a premier super club – honouring Avondale’s heritage, developing future players, and serving the community.
+
+      <div class="highlight" style="text-align:center; font-size:1.15rem; padding:1.8rem;">
+        <i class="fas fa-flag-checkered"></i> Once all items are completed, Club 84 will be Melbourne’s premier Italian-Australian super club.
       </div>
     </div>
   </div>
-
-  <footer>
-    <i class="fas fa-futbol"></i> Presented by the Members Lounge (Reggio Calabria Club) · In partnership with Avondale FC · Royal blue & Italian tricolor heritage
-  </footer>
 </div>
 
+<footer>
+  <i class="fas fa-futbol"></i> Presented by The Members Lounge (Reggio Calabria Club) • In partnership with Avondale FC
+</footer>
+
 <script>
-  // Tab switching
-  const tabs = document.querySelectorAll('.tab-btn');
-  const panes = document.querySelectorAll('.tab-pane');
-  tabs.forEach(btn => {
+  // Tab functionality
+  document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const tabId = btn.getAttribute('data-tab');
-      tabs.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active-pane'));
+      
       btn.classList.add('active');
-      panes.forEach(pane => pane.classList.remove('active-pane'));
-      document.getElementById(`${tabId}-pane`).classList.add('active-pane');
+      document.getElementById(btn.getAttribute('data-tab') + '-pane').classList.add('active-pane');
     });
   });
+
+  // Checkbox functionality + progress
+  function initCheckboxes() {
+    const allCheckboxes = document.querySelectorAll('.checkbox');
+    allCheckboxes.forEach(cb => {
+      cb.addEventListener('click', () => {
+        const checked = cb.getAttribute('data-checked') === 'true';
+        cb.setAttribute('data-checked', !checked);
+        cb.classList.toggle('checked', !checked);
+        updateProgress();
+      });
+    });
+  }
+
+  function updateProgress() {
+    const checked = document.querySelectorAll('.checkbox.checked').length;
+    const total = document.querySelectorAll('.checkbox').length;
+    const percent = total ? Math.round((checked / total) * 100) : 0;
+    document.getElementById('progressBar').style.width = percent + '%';
+  }
+
+  // Initialize everything
+  initCheckboxes();
+  updateProgress();
 </script>
 </body>
 </html>
