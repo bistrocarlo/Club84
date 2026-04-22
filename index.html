@@ -17,7 +17,7 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #f4f7fc;
+      background: #f0f2f5;
       color: #1e2a3e;
       line-height: 1.4;
       padding: 2rem 1.5rem;
@@ -32,9 +32,9 @@
       overflow: hidden;
     }
 
-    /* Avondale royal blue + Italian flag tricolor header */
+    /* True royal blue (Azzurro) – like Italian national team & Avondale FC */
     .hero {
-      background: linear-gradient(135deg, #003399 0%, #002277 100%); /* royal blue */
+      background: linear-gradient(135deg, #0055A4 0%, #003f7f 100%);
       color: white;
       padding: 2rem 2.5rem;
       position: relative;
@@ -63,7 +63,17 @@
 
     .hero .tagline {
       font-size: 1.1rem;
-      opacity: 0.9;
+      opacity: 0.92;
+    }
+
+    .hosted-by {
+      background: rgba(255,255,255,0.15);
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
+      backdrop-filter: blur(4px);
     }
 
     .content {
@@ -86,7 +96,7 @@
       font-size: 1.6rem;
       font-weight: 700;
       margin-bottom: 1.2rem;
-      color: #003399;
+      color: #0055A4;
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -106,14 +116,13 @@
       padding: 1.2rem 1.5rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       border: 1px solid #eef2f6;
-      transition: transform 0.1s ease;
     }
 
     .card h3 {
       font-size: 1.3rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
-      color: #003399;
+      color: #0055A4;
     }
 
     .metric {
@@ -125,10 +134,27 @@
 
     .highlight {
       background: #f0f7ff;
-      border-left: 4px solid #003399;
+      border-left: 4px solid #0055A4;
       padding: 0.8rem 1.2rem;
       border-radius: 0.8rem;
       margin: 1rem 0;
+    }
+
+    .menu-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
+
+    .menu-category {
+      background: #f8fafc;
+      border-radius: 2rem;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #0055A4;
+      border: 1px solid #dce3ec;
     }
 
     .membership-grid {
@@ -146,12 +172,11 @@
       padding: 1.2rem;
       text-align: center;
       border: 1px solid #dce3ec;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
 
     .tier i {
       font-size: 2rem;
-      color: #003399;
+      color: #0055A4;
     }
 
     .price {
@@ -178,7 +203,7 @@
     }
 
     .badge {
-      background: #003399;
+      background: #0055A4;
       color: white;
       border-radius: 60px;
       padding: 0.2rem 1rem;
@@ -222,11 +247,14 @@
 </head>
 <body>
 <div class="presentation-container">
-  <!-- Royal blue header with Italian tricolor bottom bar -->
+  <!-- Royal blue header with Italian tricolor bar -->
   <div class="hero">
     <h1><i class="fas fa-futbol"></i> Club 84</h1>
     <p class="tagline">President & Social Club · Avondale FC @ Reggio Calabria Club, Parkville</p>
-    <p class="tagline" style="font-size:0.9rem; margin-top:0.3rem;"><i class="fas fa-map-marker-alt"></i> Avenger Park precinct · 476 Brunswick Road</p>
+    <p class="tagline" style="font-size:0.9rem; margin-top:0.2rem;"><i class="fas fa-map-marker-alt"></i> Avenger Park precinct · 476 Brunswick Road</p>
+    <div class="hosted-by">
+      <i class="fas fa-building"></i> Hosted by the Members Lounge · Current licensee at Reggio Calabria Club
+    </div>
   </div>
 
   <div class="content">
@@ -247,12 +275,42 @@
           <div class="metric">13</div>
           <h3>Match day games / year</h3>
           <p>Post‑match hospitality for opposition, senior men’s & women’s teams, referees</p>
+          <p class="badge" style="margin-top:0.5rem;">Hot food for players on match days</p>
         </div>
         <div class="card">
           <div class="metric">300+</div>
           <h3>Combined event capacity</h3>
           <p>Both rooms + public bar area can host 300+ for major functions (cocktail style)</p>
         </div>
+      </div>
+    </div>
+
+    <!-- Comprehensive cocktail menu -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-utensils"></i>
+        <span>Cocktail party menu · Extensive selection</span>
+      </div>
+      <div class="highlight">
+        <p><strong>A beautiful comprehensive menu</strong> – all prepared as finger food & shared platters:</p>
+        <div class="menu-grid">
+          <span class="menu-category">🍕 Wood-fired pizzas</span>
+          <span class="menu-category">🍘 Arancini</span>
+          <span class="menu-category">🍝 Meatballs</span>
+          <span class="menu-category">🌭 Sausages</span>
+          <span class="menu-category">🥪 Sandwiches & Panini</span>
+          <span class="menu-category">🧀 Antipasto boards</span>
+          <span class="menu-category">🍗 Chicken skewers</span>
+          <span class="menu-category">🦐 Prawn skewers</span>
+          <span class="menu-category">🌯 Spring rolls</span>
+          <span class="menu-category">🍚 Rice paper rolls</span>
+          <span class="menu-category">🐟 Sashimi</span>
+          <span class="menu-category">🍣 Sushi</span>
+          <span class="menu-category">🍰 Dessert section</span>
+          <span class="menu-category">🥒 Pickled vegetables</span>
+          <span class="menu-category">🧀 Cheeses & accompaniments</span>
+        </div>
+        <p style="margin-top: 0.8rem;"><i class="fas fa-check-circle" style="color:#0055A4;"></i> Ideal for cocktail parties, corporate events, and private celebrations.</p>
       </div>
     </div>
 
@@ -264,19 +322,19 @@
       </div>
       <div class="grid-2col">
         <div class="card">
-          <i class="fas fa-champagne-glasses" style="font-size:1.8rem; color:#003399;"></i>
+          <i class="fas fa-champagne-glasses" style="font-size:1.8rem; color:#0055A4;"></i>
           <h3>Doyle Street Room</h3>
           <p>80‑100 guests · private bar · DJ booth · separate entrance</p>
           <p class="badge">Soundproofed</p>
         </div>
         <div class="card">
-          <i class="fas fa-music" style="font-size:1.8rem; color:#003399;"></i>
+          <i class="fas fa-music" style="font-size:1.8rem; color:#0055A4;"></i>
           <h3>AJ Davis Reserve Room</h3>
           <p>80‑100 guests · identical spec · adjoins private lounge</p>
           <p class="badge">Soundproofed</p>
         </div>
         <div class="card">
-          <i class="fas fa-tv" style="font-size:1.8rem; color:#003399;"></i>
+          <i class="fas fa-tv" style="font-size:1.8rem; color:#0055A4;"></i>
           <h3>Public Sports Bar</h3>
           <p>Projector + TV screens · open weekends & match days to public · no membership required for entry</p>
         </div>
@@ -284,20 +342,20 @@
       <div class="italian-strip"></div>
     </div>
 
-    <!-- Match day & food service (no commercial kitchen, using upstairs) -->
+    <!-- Junior birthday parties -->
     <div class="section">
       <div class="section-title">
-        <i class="fas fa-calendar-alt"></i>
-        <span>Match day operations & catering</span>
+        <i class="fas fa-birthday-cake"></i>
+        <span>Junior birthday parties · Celebrating our future</span>
       </div>
-      <div class="highlight">
-        <i class="fas fa-utensils"></i> <strong>Post‑match food (13 games)</strong> – opposition, Avondale senior men’s/women’s teams, referees. Prepared in <strong>upstairs pizza oven + ballroom kitchen</strong>.<br>
-        Menu: hot antipasto, finger food, wood‑fired pizza slices, cold platters. <em>No commercial kitchen on ground floor – perfect for cocktail style.</em>
+      <div class="highlight" style="background:#eef2ff;">
+        <i class="fas fa-futbol"></i> <strong>All Avondale junior players can host their birthday parties at Club 84</strong> – during the week (Monday–Thursday evenings).<br>
+        <span class="badge" style="background:#1f5e3a; margin-top:0.5rem;">10% discount for current Avondale junior players</span>
+        <p style="margin-top:0.8rem;">Party package includes access to one of the cocktail rooms, dedicated host, and the full finger food menu (kid‑friendly options available).</p>
       </div>
-      <p style="margin-top: 0.8rem;"><strong>Rest of the year:</strong> Function rooms available for <strong>private bookings only</strong> (cocktail / nightclub setup). Minimum 50 guests, multiple menu options.</p>
     </div>
 
-    <!-- Honor board + Life/Foundation memberships -->
+    <!-- Honor board + membership tiers -->
     <div class="section">
       <div class="section-title">
         <i class="fas fa-medal"></i>
@@ -339,7 +397,7 @@
       </div>
     </div>
 
-    <!-- Membership access & public hours -->
+    <!-- Access model -->
     <div class="section">
       <div class="section-title">
         <i class="fas fa-users"></i>
@@ -357,14 +415,14 @@
       </div>
     </div>
 
-    <!-- Italian flag & royal blue closing note -->
-    <div style="background: #003399; color: white; border-radius: 1.2rem; padding: 1rem 1.5rem; text-align: center; margin-top: 0.5rem;">
+    <!-- Closing note -->
+    <div style="background: #0055A4; color: white; border-radius: 1.2rem; padding: 1rem 1.5rem; text-align: center; margin-top: 0.5rem;">
       <i class="fas fa-flag-checkered"></i> Club 84 – a new landmark for Italian‑Australian sport & community.<br>
       <span style="font-size:0.8rem;">Presented to the Committees of Reggio Calabria Club & Avondale Soccer Club · Master plan for a sustainable super club.</span>
     </div>
   </div>
   <footer>
-    <i class="fas fa-futbol"></i> Avondale FC royal blue · Italian tricolor heritage · Two soundproofed event rooms · Life & Foundation membership drive opens Q3
+    <i class="fas fa-futbol"></i> Avondale FC royal blue · Italian tricolor heritage · Hosted by the Members Lounge, Reggio Calabria Club · Junior birthday parties available
   </footer>
 </div>
 </body>
