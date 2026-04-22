@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Club 84 | Super Club Master Plan – Reggio Calabria · Avondale FC</title>
+  <title>Club 84 | Build Completion Checklist – Avondale FC & Reggio Calabria Club</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Google Fonts -->
@@ -23,8 +23,8 @@
       padding: 2rem 1.5rem;
     }
 
-    .presentation-container {
-      max-width: 1280px;
+    .checklist-container {
+      max-width: 1100px;
       margin: 0 auto;
       background: white;
       border-radius: 2rem;
@@ -32,15 +32,15 @@
       overflow: hidden;
     }
 
-    /* True royal blue + Italian flag bottom bar */
-    .hero {
+    /* Royal blue header with Italian tricolor */
+    .header {
       background: linear-gradient(135deg, #0055A4 0%, #003f7f 100%);
       color: white;
       padding: 2rem 2.5rem;
       position: relative;
     }
 
-    .hero::after {
+    .header::after {
       content: "";
       position: absolute;
       bottom: 0;
@@ -50,30 +50,19 @@
       background: linear-gradient(90deg, #009246 0%, #009246 33%, #ffffff 33%, #ffffff 66%, #ce2b37 66%, #ce2b37 100%);
     }
 
-    .hero h1 {
-      font-size: 2.8rem;
+    .header h1 {
+      font-size: 2.5rem;
       font-weight: 800;
-      letter-spacing: -0.02em;
       margin-bottom: 0.25rem;
     }
 
-    .hero h1 i {
+    .header h1 i {
       margin-right: 0.75rem;
     }
 
-    .hero .tagline {
-      font-size: 1.1rem;
-      opacity: 0.92;
-    }
-
-    .hosted-by {
-      background: rgba(255,255,255,0.15);
-      display: inline-block;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      margin-top: 0.8rem;
-      backdrop-filter: blur(4px);
+    .header p {
+      font-size: 1rem;
+      opacity: 0.9;
     }
 
     .content {
@@ -83,19 +72,19 @@
     .section {
       margin-bottom: 2rem;
       border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 1.8rem;
+      padding-bottom: 1.5rem;
     }
 
     .section:last-child {
       border-bottom: none;
-      padding-bottom: 0;
       margin-bottom: 0;
+      padding-bottom: 0;
     }
 
     .section-title {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
       color: #0055A4;
       display: flex;
       align-items: center;
@@ -104,149 +93,48 @@
       padding-left: 1rem;
     }
 
-    .grid-2col {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+    .checklist {
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
-    .card {
-      background: #ffffff;
-      border-radius: 1.2rem;
-      padding: 1.2rem 1.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      border: 1px solid #eef2f6;
-      transition: transform 0.1s ease;
-    }
-
-    .card h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #0055A4;
-    }
-
-    .metric {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #ce2b37;
-      line-height: 1.2;
-    }
-
-    .highlight {
-      background: #f0f7ff;
-      border-left: 4px solid #0055A4;
-      padding: 0.8rem 1.2rem;
-      border-radius: 0.8rem;
-      margin: 1rem 0;
-    }
-
-    .menu-grid {
+    .checklist li {
+      margin-bottom: 0.75rem;
       display: flex;
-      flex-wrap: wrap;
+      align-items: flex-start;
       gap: 0.8rem;
-      margin: 1rem 0;
+      font-size: 1rem;
     }
 
-    .menu-category {
-      background: #f8fafc;
-      border-radius: 2rem;
-      padding: 0.3rem 1rem;
-      font-size: 0.8rem;
-      font-weight: 500;
+    .checklist li i.fa-square, .checklist li i.far.fa-square {
       color: #0055A4;
-      border: 1px solid #dce3ec;
+      font-size: 1.2rem;
+      margin-top: 0.1rem;
+      cursor: default;
     }
 
-    .membership-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      margin-top: 1rem;
-    }
-
-    .tier {
-      flex: 1;
-      min-width: 180px;
-      background: #fefefe;
-      border-radius: 1.2rem;
-      padding: 1.2rem;
-      text-align: center;
-      border: 1px solid #dce3ec;
-    }
-
-    .tier i {
-      font-size: 2rem;
-      color: #0055A4;
-    }
-
-    .price {
-      font-size: 1.7rem;
-      font-weight: 800;
+    .checklist li strong {
       color: #1f5e3a;
-      margin: 0.5rem 0;
     }
 
-    .discount-badge {
+    .subnote {
+      background: #f8fafc;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      border-left: 3px solid #0055A4;
+    }
+
+    .badge-funding {
       background: #e6f0ff;
       border-radius: 40px;
       padding: 0.2rem 0.8rem;
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .italian-strip {
-      background: repeating-linear-gradient(90deg, #009246, #009246 20px, #ffffff 20px, #ffffff 40px, #ce2b37 40px, #ce2b37 60px);
-      height: 4px;
-      width: 100%;
-      margin: 1rem 0;
-    }
-
-    .badge {
-      background: #0055A4;
-      color: white;
-      border-radius: 60px;
-      padding: 0.2rem 1rem;
       font-size: 0.75rem;
       font-weight: 600;
       display: inline-block;
-    }
-
-    .honor-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      background: #f9fafc;
-      border-radius: 1.2rem;
-      padding: 1rem;
-      justify-content: space-between;
-      margin-top: 0.8rem;
-    }
-
-    .honor-item {
-      text-align: center;
-      flex: 1;
-      min-width: 100px;
-    }
-
-    /* lighting & library specific */
-    .lighting-suggestion {
-      background: #1a1a2e;
-      color: #eee;
-      border-radius: 1.2rem;
-      padding: 1.2rem;
-      margin-top: 0.5rem;
-    }
-
-    .color-swatch {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      margin-right: 8px;
-      vertical-align: middle;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      margin-left: 0.5rem;
     }
 
     footer {
@@ -259,243 +147,134 @@
     }
 
     @media (max-width: 700px) {
-      .hero h1 { font-size: 2rem; }
+      .header h1 { font-size: 1.8rem; }
       .content { padding: 1.2rem; }
       .section-title { font-size: 1.3rem; }
     }
   </style>
 </head>
 <body>
-<div class="presentation-container">
-  <!-- Hero with royal blue & Italian flag -->
-  <div class="hero">
-    <h1><i class="fas fa-futbol"></i> Club 84</h1>
-    <p class="tagline">President & Social Club · Avondale FC @ Reggio Calabria Club, Parkville</p>
-    <p class="tagline" style="font-size:0.9rem; margin-top:0.2rem;"><i class="fas fa-map-marker-alt"></i> Avenger Park precinct · 476 Brunswick Road</p>
-    <div class="hosted-by">
-      <i class="fas fa-building"></i> Hosted by the Members Lounge · Current licensee at Reggio Calabria Club
-    </div>
+<div class="checklist-container">
+  <div class="header">
+    <h1><i class="fas fa-clipboard-list"></i> Club 84 Build Completion</h1>
+    <p>Checklist for Avondale FC & Reggio Calabria Club Committees · Tick off each item to finalise the super club</p>
   </div>
-
   <div class="content">
-    <!-- Capacity Snapshot (each room 80-100, no combined) -->
+    <!-- 1. Colour Scheme & Atmosphere -->
     <div class="section">
       <div class="section-title">
-        <i class="fas fa-chart-line"></i>
-        <span>Super Club · Capacity & Scale</span>
+        <i class="fas fa-palette"></i> Colour scheme & nightclub atmosphere
       </div>
-      <div class="grid-2col">
-        <div class="card">
-          <div class="metric">2</div>
-          <h3>Soundproofed cocktail rooms</h3>
-          <p>Doyle Street Room & AJ Davis Reserve</p>
-          <p><strong>80–100 guests each</strong> (nightclub / cocktail setup)<br>Fully walled + acoustic isolation</p>
-        </div>
-        <div class="card">
-          <div class="metric">13</div>
-          <h3>Match day games / year</h3>
-          <p>Post‑match hospitality for opposition, senior men’s & women’s teams, referees</p>
-          <p class="badge" style="margin-top:0.5rem;">Hot food for players on match days</p>
-        </div>
-        <div class="card">
-          <div class="metric">2</div>
-          <h3>Public areas</h3>
-          <p>Sports bar (TVs & projector) + <strong>Bistro area</strong> for casual dining</p>
-        </div>
+      <ul class="checklist">
+        <li><i class="far fa-square"></i> <strong>Royal blue (#0055A4)</strong> as primary – approved and applied to all branding, furniture, and feature walls</li>
+        <li><i class="far fa-square"></i> <strong>Italian tricolor accents</strong> (green, white, red) – integrated into hero wall, bar front, or lighting strips</li>
+        <li><i class="far fa-square"></i> <strong>Nightclub lighting package</strong> – RGB LED wash lights, moving heads, disco/mood lighting, strobes, and dimmable zones</li>
+        <li><i class="far fa-square"></i> <strong>Surround sound system</strong> – zone-controlled, high-quality speakers in both private rooms and public bar/bistro</li>
+        <li><i class="far fa-square"></i> <strong>Fixtures & fittings</strong> – black ceilings, recessed LED strips, mirrored accents, illuminated bar counters</li>
+      </ul>
+    </div>
+
+    <!-- 2. Memorabilia & Media Wall -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-archive"></i> Memorabilia & media wall (public area)
+      </div>
+      <ul class="checklist">
+        <li><i class="far fa-square"></i> <strong>Avondale Heritage Wall</strong> – request to Avondale FC for contribution of past shirts, trophies, flags, and historical items</li>
+        <li><i class="far fa-square"></i> <strong>Display cabinets & lighting</strong> – secure, illuminated showcases for memorabilia</li>
+        <li><i class="far fa-square"></i> <strong>Interactive media wall & red carpet platform</strong> – built on a raised platform with red carpet, branded backdrop, and professional lighting</li>
+        <li><i class="far fa-square"></i> <strong>Photo booth setup</strong> – automated camera station with club branding, instant social media posting capability (hashtag #Club84)</li>
+        <li><i class="far fa-square"></i> <strong>Children’s celebrity experience</strong> – kids can pose like soccer stars; photos shared to enhance Avondale’s public visibility</li>
+      </ul>
+      <div class="subnote">
+        <i class="fas fa-handshake"></i> <strong>Avondale contribution requested:</strong> Provide heritage items and a financial / in‑kind contribution toward making the public area stylish and on‑brand.
       </div>
     </div>
 
-    <!-- Public area: Sports bar + Bistro -->
+    <!-- 3. Educational & Soccer University Use (NEW) -->
     <div class="section">
       <div class="section-title">
-        <i class="fas fa-building"></i>
-        <span>Public area · Sports bar & bistro</span>
+        <i class="fas fa-graduation-cap"></i> Educational & soccer university use (weekday programs)
       </div>
-      <div class="grid-2col">
-        <div class="card">
-          <i class="fas fa-tv" style="font-size:1.8rem; color:#0055A4;"></i>
-          <h3>Sports Bar</h3>
-          <p>Large projector & multiple TV screens · live sport · open to public on weekends & match days</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-utensils" style="font-size:1.8rem; color:#0055A4;"></i>
-          <h3>Bistro Area</h3>
-          <p>Casual seating · same comprehensive cocktail menu available · no membership required</p>
-        </div>
+      <ul class="checklist">
+        <li><i class="far fa-square"></i> <strong>Children’s training programs (e.g., 80/20 with Moe)</strong> – use the soundproofed rooms for educational soccer sessions during weekdays/evenings</li>
+        <li><i class="far fa-square"></i> <strong>Parent waiting area</strong> – while children train, parents can wait in the public sports bar / bistro area, enjoying drinks and food</li>
+        <li><i class="far fa-square"></i> <strong>Soccer University for Avondale’s player regime</strong> – dedicated weekly sessions for Avondale’s entire senior and youth squads using the rooms as a classroom / tactical analysis hub</li>
+        <li><i class="far fa-square"></i> <strong>Equipment & technology</strong> – install whiteboards, video analysis screens, and Wi‑Fi for coaching presentations</li>
+        <li><i class="far fa-square"></i> <strong>Scheduling & booking system</strong> – integrate with Club 84’s existing reservation system to prioritise Avondale’s educational use</li>
+      </ul>
+      <div class="subnote">
+        <i class="fas fa-chalkboard-teacher"></i> <strong>Benefit:</strong> Transforms Club 84 into a community hub for player development, keeping families engaged and driving bar/food revenue while children learn.
       </div>
     </div>
 
-    <!-- Comprehensive cocktail menu (no mention of external kitchens) -->
+    <!-- 4. Membership Plans & Honor Board -->
     <div class="section">
       <div class="section-title">
-        <i class="fas fa-utensils"></i>
-        <span>Cocktail party menu · Extensive selection</span>
+        <i class="fas fa-id-card"></i> Membership plans & honor board
       </div>
-      <div class="highlight">
-        <p><strong>A beautiful comprehensive menu</strong> – perfect for functions, match days, and bistro dining:</p>
-        <div class="menu-grid">
-          <span class="menu-category">🍕 Wood-fired pizzas</span>
-          <span class="menu-category">🍘 Arancini</span>
-          <span class="menu-category">🍝 Meatballs</span>
-          <span class="menu-category">🌭 Sausages</span>
-          <span class="menu-category">🥪 Sandwiches & Panini</span>
-          <span class="menu-category">🧀 Antipasto boards</span>
-          <span class="menu-category">🍗 Chicken skewers</span>
-          <span class="menu-category">🦐 Prawn skewers</span>
-          <span class="menu-category">🌯 Spring rolls</span>
-          <span class="menu-category">🍚 Rice paper rolls</span>
-          <span class="menu-category">🐟 Sashimi</span>
-          <span class="menu-category">🍣 Sushi</span>
-          <span class="menu-category">🍰 Dessert section</span>
-          <span class="menu-category">🥒 Pickled vegetables</span>
-          <span class="menu-category">🧀 Cheeses & accompaniments</span>
-        </div>
+      <ul class="checklist">
+        <li><i class="far fa-square"></i> <strong>Life Member</strong> – $10,000 one‑time → 20% F&B discount, name on Life Members board</li>
+        <li><i class="far fa-square"></i> <strong>Foundation Member</strong> – $5,000 one‑time → 10% F&B discount, foundation recognition</li>
+        <li><i class="far fa-square"></i> <strong>Generic Club Member</strong> – annual fee → 10% F&B discount (Reggio Calabria or Avondale FC members)</li>
+        <li><i class="far fa-square"></i> <strong>Club 84 Relury Club Card</strong> – physical/digital card for access to private rooms and discounts</li>
+        <li><i class="far fa-square"></i> <strong>Honor Board installation</strong> – permanent display listing Presidents, Vice Presidents, Treasurers, and Life Members (inside restaurant)</li>
+        <li><i class="far fa-square"></i> <strong>Committee approval</strong> – sign‑off on membership tiers, pricing, and discount structure</li>
+      </ul>
+      <div class="subnote">
+        <i class="fas fa-dollar-sign"></i> <strong>Financial note:</strong> All revenue from Life, Foundation, and generic memberships goes directly to <strong>Avondale FC</strong>. Club 84 merely hosts the Honor Board on Avondale’s behalf.
       </div>
     </div>
 
-    <!-- Two soundproofed rooms (private) -->
+    <!-- 5. Advisors & Consultation -->
     <div class="section">
       <div class="section-title">
-        <i class="fas fa-door-closed"></i>
-        <span>Private event spaces · Soundproofed</span>
+        <i class="fas fa-users"></i> Advisors & committee consultation
       </div>
-      <div class="grid-2col">
-        <div class="card">
-          <i class="fas fa-champagne-glasses" style="font-size:1.8rem; color:#0055A4;"></i>
-          <h3>Doyle Street Room</h3>
-          <p>80‑100 guests · private bar · DJ booth · separate entrance</p>
-          <p class="badge">Fully soundproofed</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-music" style="font-size:1.8rem; color:#0055A4;"></i>
-          <h3>AJ Davis Reserve Room</h3>
-          <p>80‑100 guests · identical spec · adjoins private lounge</p>
-          <p class="badge">Fully soundproofed</p>
-        </div>
-      </div>
-      <div class="italian-strip"></div>
+      <ul class="checklist">
+        <li><i class="far fa-square"></i> <strong>Joint advisory group formed</strong> – representatives from Avondale FC, Reggio Calabria Club, and Members Lounge</li>
+        <li><i class="far fa-square"></i> <strong>Regular consultation meetings</strong> – schedule monthly until build completion</li>
+        <li><i class="far fa-square"></i> <strong>Design & fit‑out approvals</strong> – both committees to sign off on final plans for public area (Avondale contribution) and internal area (Members Lounge funding)</li>
+      </ul>
     </div>
 
-    <!-- Nightclub Atmosphere & Lighting Design (new) -->
+    <!-- 6. Funding & Contributions -->
     <div class="section">
       <div class="section-title">
-        <i class="fas fa-lightbulb"></i>
-        <span>Nightclub atmosphere · Lighting & sound</span>
+        <i class="fas fa-coins"></i> Funding responsibilities
       </div>
-      <div class="lighting-suggestion">
-        <p><strong>Suggested color scheme for nightclub feel:</strong></p>
-        <p>
-          <span class="color-swatch" style="background:#0055A4;"></span> Royal Blue (signature)<br>
-          <span class="color-swatch" style="background:#9b59b6;"></span> Violet / Purple (disco accents)<br>
-          <span class="color-swatch" style="background:#f39c12;"></span> Amber / Gold (warm mood lighting)<br>
-          <span class="color-swatch" style="background:#ecf0f1;"></span> Cool white (for memorabilia displays)
-        </p>
-        <p><strong>Lighting fixtures & effects:</strong> RGB LED wash lights, moving head spots, laser effects, and programmable <strong>disco lighting</strong> with strobe options. <strong>Mood lighting</strong> (dim‑to‑warm) along the bar and bistro areas. <strong>Surround sound</strong> system with zone control – high‑quality speakers in each room, subwoofers for bass, acoustic treatment to avoid bleed.</p>
-        <p><strong>Fixtures & fittings:</strong> Black ceiling with recessed LED strips, mirrored accents, modern pendant lights over the bistro, and illuminated bar counters. All dimmable to transition from relaxed lounge to energetic nightclub.</p>
+      <ul class="checklist">
+        <li><i class="far fa-square"></i> <strong>Public area (sports bar, bistro, heritage wall, media wall)</strong> – <strong>Avondale FC contribution</strong> requested to ensure stylish, on‑brand finish</li>
+        <li><i class="far fa-square"></i> <strong>Internal area (two soundproofed rooms, private bars, lighting, sound, furniture)</strong> – funded entirely by <strong>Members Lounge</strong> (current licensee at Reggio Calabria Club)</li>
+        <li><i class="far fa-square"></i> <strong>Match day games model</strong> – minimum 13 games, scalable to 36 based on bookings and minimum spend requirements</li>
+        <li><i class="far fa-square"></i> <strong>Junior birthday parties</strong> – 10% discount for Avondale junior players; operational during weeknights</li>
+        <li><i class="far fa-square"></i> <strong>Educational & soccer university sessions</strong> – no venue hire fee for Avondale’s official programs; bar/food sales from parents generate revenue</li>
+      </ul>
+      <div class="subnote">
+        <i class="fas fa-chart-line"></i> <strong>Revenue sharing (if any):</strong> Bar and food revenue from private rooms stays with Club 84 / Members Lounge; membership fees go to Avondale FC. Both committees to review and sign.
       </div>
     </div>
 
-    <!-- Avondale Heritage Library (memorabilia) -->
+    <!-- 7. Final Approvals -->
     <div class="section">
       <div class="section-title">
-        <i class="fas fa-archive"></i>
-        <span>Avondale Heritage Library · Memorabilia wall</span>
+        <i class="fas fa-check-double"></i> Final approvals to complete build
       </div>
-      <div class="card" style="background:#fdfaf6;">
-        <i class="fas fa-trophy" style="font-size:2rem; color:#d4af37;"></i>
-        <h3>Walk through history</h3>
-        <p>A dedicated library / display area showcasing:</p>
-        <ul style="margin: 0.5rem 0 0 1.2rem;">
-          <li>📋 <strong>Past shirts</strong> – every Avondale FC jersey from the club’s foundation</li>
-          <li>🏆 <strong>Trophies & medals</strong> – premierships, cup wins, individual honours</li>
-          <li>🏁 <strong>Historic flags</strong> – Italian and Australian supporters’ banners, match‑used flags</li>
-          <li>📸 <strong>Photo panels & match programs</strong> – celebrating legends and memorable games</li>
-        </ul>
-        <p style="margin-top:0.8rem;">The library will be adjacent to the bistro, with glass display cabinets and soft spotlighting, creating a proud, nostalgic atmosphere for members and guests.</p>
-      </div>
+      <ul class="checklist">
+        <li><i class="far fa-square"></i> <strong>Avondale FC Committee</strong> – formal resolution to approve the master plan and contribution to public area</li>
+        <li><i class="far fa-square"></i> <strong>Reggio Calabria Club Committee</strong> – formal resolution to approve the hosted venue and internal funding by Members Lounge</li>
+        <li><i class="far fa-square"></i> <strong>Licensing & compliance</strong> – all necessary permits for soundproofing, extended trading, and public events</li>
+        <li><i class="far fa-square"></i> <strong>Build completion sign‑off</strong> – joint inspection and handover</li>
+      </ul>
     </div>
 
-    <!-- Junior birthday parties -->
-    <div class="section">
-      <div class="section-title">
-        <i class="fas fa-birthday-cake"></i>
-        <span>Junior birthday parties · Celebrating our future</span>
-      </div>
-      <div class="highlight" style="background:#eef2ff;">
-        <i class="fas fa-futbol"></i> <strong>All Avondale junior players can host their birthday parties at Club 84</strong> – during the week (Monday–Thursday evenings).<br>
-        <span class="badge" style="background:#1f5e3a; margin-top:0.5rem;">10% discount for current Avondale junior players</span>
-        <p style="margin-top:0.8rem;">Party package includes access to one of the cocktail rooms, dedicated host, and the full finger food menu (kid‑friendly options available).</p>
-      </div>
-    </div>
-
-    <!-- Honor board & membership tiers -->
-    <div class="section">
-      <div class="section-title">
-        <i class="fas fa-medal"></i>
-        <span>Honor board & membership tiers</span>
-      </div>
-      <p>Inside the main restaurant, a permanent <strong>Honor Board</strong> will list:</p>
-      <div class="honor-row">
-        <div class="honor-item"><i class="fas fa-gavel"></i><br>Presidents</div>
-        <div class="honor-item"><i class="fas fa-handshake"></i><br>Vice Presidents</div>
-        <div class="honor-item"><i class="fas fa-coins"></i><br>Treasurers</div>
-        <div class="honor-item"><i class="fas fa-star-of-life"></i><br>Life Members</div>
-      </div>
-      
-      <div class="membership-grid">
-        <div class="tier">
-          <i class="fas fa-crown"></i>
-          <h3>Life Member</h3>
-          <div class="price">$10,000</div>
-          <div class="discount-badge">20% discount F&B</div>
-          <p style="font-size:0.75rem; margin-top:0.5rem;">Name on Life Members board</p>
-        </div>
-        <div class="tier">
-          <i class="fas fa-gem"></i>
-          <h3>Foundation Member</h3>
-          <div class="price">$5,000</div>
-          <div class="discount-badge">10% discount F&B</div>
-          <p style="font-size:0.75rem;">Foundation recognition</p>
-        </div>
-        <div class="tier">
-          <i class="fas fa-id-card"></i>
-          <h3>Generic Club Member</h3>
-          <div class="price">Annual</div>
-          <div class="discount-badge">10% discount F&B</div>
-          <p style="font-size:0.75rem;">Reggio Calabria or Avondale FC member</p>
-        </div>
-      </div>
-      <div class="highlight" style="margin-top:0.8rem;">
-        <i class="fas fa-credit-card"></i> <strong>Club 84 Relury Club Card</strong> – access to private soundproofed rooms + automatic discount. Life & Foundation members receive priority bookings.
-      </div>
-    </div>
-
-    <!-- Access model -->
-    <div class="section">
-      <div class="section-title">
-        <i class="fas fa-users"></i>
-        <span>Access model</span>
-      </div>
-      <div class="grid-2col">
-        <div class="card">
-          <h3><i class="fas fa-door-open"></i> Public access</h3>
-          <p>Saturdays, Sundays & match days – sports bar & bistro open to all. No membership needed for entry or food.</p>
-        </div>
-        <div class="card">
-          <h3><i class="fas fa-id-card"></i> Private rooms access</h3>
-          <p>Exclusive to <strong>Club 84 Relury Club card holders</strong> (members of Reggio Calabria Club or Avondale FC).</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Closing note -->
-    <div style="background: #0055A4; color: white; border-radius: 1.2rem; padding: 1rem 1.5rem; text-align: center; margin-top: 0.5rem;">
-      <i class="fas fa-flag-checkered"></i> Club 84 – a new landmark for Italian‑Australian sport & community.<br>
-      <span style="font-size:0.8rem;">Presented to the Committees of Reggio Calabria Club & Avondale Soccer Club · Master plan for a sustainable super club.</span>
+    <!-- Closing statement -->
+    <div style="background: #0055A4; color: white; border-radius: 1.2rem; padding: 1rem; text-align: center; margin-top: 1rem;">
+      <i class="fas fa-flag-checkered"></i> Once all items are ticked, Club 84 will become a premier super club – honouring Avondale’s heritage, developing future players, and serving the community.
     </div>
   </div>
   <footer>
-    <i class="fas fa-futbol"></i> Avondale FC royal blue · Italian tricolor heritage · Hosted by the Members Lounge, Reggio Calabria Club · Junior birthday parties · Heritage library
+    <i class="fas fa-futbol"></i> Presented by the Members Lounge (Reggio Calabria Club) · In partnership with Avondale FC
   </footer>
 </div>
 </body>
