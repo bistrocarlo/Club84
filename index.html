@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Club 84 | Avondale FC – Coding System & App</title>
-  <!-- Font Awesome Icons (free) -->
+  <title>Club 84 Master Plan | Committee Presentation – Reggio Calabria & Avondale FC</title>
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -17,576 +17,302 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #f4f7fc;
+      background: #f0f2f5;
       color: #1e2a3e;
       line-height: 1.5;
-      padding: 1.5rem;
+      padding: 2rem 1.5rem;
     }
 
-    .container {
-      max-width: 1400px;
+    .presentation-container {
+      max-width: 1280px;
       margin: 0 auto;
-    }
-
-    /* header & club identity */
-    .header {
-      background: linear-gradient(135deg, #0b2b3b 0%, #1a4b6e 100%);
-      color: white;
+      background: white;
       border-radius: 2rem;
-      padding: 1.5rem 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+      overflow: hidden;
     }
 
-    .club-badge {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .club-title h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .club-title p {
-      font-size: 0.95rem;
-      opacity: 0.85;
-      margin-top: 0.3rem;
-    }
-
-    .club-code {
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(4px);
-      padding: 0.6rem 1.2rem;
-      border-radius: 60px;
-      font-family: monospace;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-
-    /* navigation tabs */
-    .nav-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
-      border-bottom: 2px solid #cbd5e1;
-      padding-bottom: 0.5rem;
-    }
-
-    .tab-btn {
-      background: transparent;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-weight: 600;
-      font-size: 1rem;
-      border-radius: 40px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      color: #2c3e50;
-    }
-
-    .tab-btn i {
-      margin-right: 0.5rem;
-    }
-
-    .tab-btn.active {
-      background: #1a4b6e;
+    .hero {
+      background: linear-gradient(135deg, #8b1e1e 0%, #a52a2a 100%);
       color: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 2.5rem 3rem;
+      text-align: center;
     }
 
-    .tab-btn:not(.active):hover {
-      background: #e2e8f0;
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
     }
 
-    /* content panels */
-    .tab-pane {
-      display: none;
-      animation: fadeIn 0.25s ease;
+    .hero h1 i {
+      margin-right: 0.75rem;
     }
 
-    .tab-pane.active-pane {
-      display: block;
+    .hero .tagline {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-top: 0.5rem;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px);}
-      to { opacity: 1; transform: translateY(0);}
+    .funding-badge {
+      background: rgba(255,255,255,0.2);
+      display: inline-block;
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      margin-top: 1.2rem;
+      backdrop-filter: blur(4px);
     }
 
-    /* card grid */
-    .grid-cards {
+    .content {
+      padding: 2.5rem 3rem;
+    }
+
+    .section {
+      margin-bottom: 2.8rem;
+      border-bottom: 1px solid #e4e9f0;
+      padding-bottom: 2rem;
+    }
+
+    .section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #8b1e1e;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title i {
+      font-size: 1.8rem;
+    }
+
+    .grid-2col {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 1.5rem 0;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
     }
 
     .card {
-      background: white;
+      background: #fefefe;
       border-radius: 1.5rem;
       padding: 1.5rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      transition: transform 0.2s;
-      border: 1px solid #e9eef3;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-    }
-
-    .code-badge {
-      background: #eef2ff;
-      color: #1e40af;
-      font-family: monospace;
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 0.3rem 0.8rem;
-      border-radius: 30px;
-      display: inline-block;
-      margin-bottom: 1rem;
-      letter-spacing: 0.3px;
+      border: 1px solid #edf2f7;
     }
 
     .card h3 {
       font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      color: #2d3e50;
+    }
+
+    .highlight {
+      background: #fff6e5;
+      border-left: 5px solid #d97706;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .honor-board {
+      background: #faf9f0;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border: 1px solid #e2dccd;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: space-between;
+    }
+
+    .honor-category {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .honor-category h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #8b1e1e;
+      border-bottom: 2px solid #c7a17a;
+      display: inline-block;
       margin-bottom: 0.5rem;
     }
 
-    .divider {
-      height: 2px;
-      background: #e2e8f0;
-      margin: 1rem 0;
-    }
-
-    /* forms and booking */
-    .booking-form {
+    .membership-tier {
       background: white;
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 0.7rem;
-      border-radius: 1rem;
-      border: 1px solid #cbd5e1;
-      font-family: inherit;
-    }
-
-    button {
-      background: #1a4b6e;
-      color: white;
-      border: none;
-      padding: 0.7rem 1.5rem;
-      border-radius: 2rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    button:hover {
-      background: #0f3b57;
-    }
-
-    .menu-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #edf2f7;
-      padding: 0.8rem 0;
-    }
-
-    .item-info h4 {
-      font-size: 1rem;
-    }
-
-    .item-info p {
-      font-size: 0.8rem;
-      color: #4b5563;
+      border-radius: 1.2rem;
+      padding: 1.2rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      border: 1px solid #e9ecef;
     }
 
     .price {
-      font-weight: 700;
-      margin-right: 1rem;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #1f5e3a;
     }
 
-    .order-summary {
-      background: #f8fafc;
-      border-radius: 1rem;
-      padding: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    .bill-tables {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin: 1rem 0;
-    }
-
-    .badge-warning {
-      background: #fef9c3;
-      color: #854d0e;
-      padding: 0.25rem 0.7rem;
+    .discount {
+      font-size: 0.9rem;
+      background: #e9ecef;
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
       border-radius: 30px;
-      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .badge {
+      background: #8b1e1e;
+      color: white;
+      border-radius: 60px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
       font-weight: 600;
+      display: inline-block;
     }
 
     footer {
+      background: #f8fafc;
+      padding: 1.5rem 3rem;
       text-align: center;
-      margin-top: 3rem;
-      color: #5a6e7c;
-      font-size: 0.8rem;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.85rem;
+      color: #4b5563;
     }
 
-    @media (max-width: 640px) {
-      body {
-        padding: 1rem;
-      }
-      .club-title h1 {
-        font-size: 1.5rem;
-      }
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 2rem; }
+      .content { padding: 1.5rem; }
+      .section-title { font-size: 1.5rem; }
+      .honor-board { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <!-- HEADER -->
-  <div class="header">
-    <div class="club-badge">
-      <div class="club-title">
-        <h1><i class="fas fa-futbol"></i> Club 84 | Avondale FC</h1>
-        <p>📍 476 Brunswick Road, Parkville · Avenger Park · President & Social Club</p>
-        <p><i class="fas fa-glass-cheers"></i> Sports bar open to public + members + players + officials</p>
-      </div>
-      <div class="club-code">
-        <i class="fas fa-tag"></i> AVP-84
-      </div>
+<div class="presentation-container">
+  <div class="hero">
+    <h1><i class="fas fa-futbol"></i> Club 84</h1>
+    <p class="tagline">Premier social & events hub – Reggio Calabria Club · Avondale FC</p>
+    <div class="funding-badge">
+      <i class="fas fa-chart-line"></i> Funded by Sportivo Industries Proprietary Limited
     </div>
   </div>
 
-  <!-- TABS for organisation -->
-  <div class="nav-tabs">
-    <button class="tab-btn active" data-tab="codes"><i class="fas fa-qrcode"></i> Coding system</button>
-    <button class="tab-btn" data-tab="rooms"><i class="fas fa-door-open"></i> Rooms booking</button>
-    <button class="tab-btn" data-tab="privatebar"><i class="fas fa-dart"></i> Private Bar (Billiards & bites)</button>
-    <button class="tab-btn" data-tab="publicbar"><i class="fas fa-tv"></i> Public Bar / Projector</button>
-  </div>
+  <div class="content">
+    <!-- Vision & location (keep brief) -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-map-pin"></i> 
+        <span>Club 84 at Reggio Calabria Club – Master Plan</span>
+      </div>
+      <p style="margin-bottom: 1rem; font-size: 1.05rem;">Club 84 becomes the new president & social club for Avondale Football Club, operating from the <strong>Reggio Calabria Club</strong> precinct (adjacent Avenger Park, Parkville). Open to members, players, officials, and the public on selected days. Fully funded and developed by <strong>Sportivo Industries</strong>.</p>
+    </div>
 
-  <!-- ========= 1) CODING SYSTEM PANEL ========= -->
-  <div id="codes-pane" class="tab-pane active-pane">
-    <h2><i class="fas fa-sitemap"></i> Official Club 84 Coding System (Hierarchical)</h2>
-    <p style="margin-bottom: 1rem;">Format: <code>[Site]-[Club]-[SpaceType][Identifier]</code> — used for bookings, signage, maintenance & app logic.</p>
-    <div class="grid-cards">
-      <div class="card">
-        <span class="code-badge"><i class="fas fa-building"></i> AVP-84</span>
-        <h3>Club 84 entire facility</h3>
-        <p>President & social club of Avondale FC · Avenger Park</p>
+    <!-- HONOR BOARD inside the restaurant -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-medal"></i>
+        <span>Honor Board – inside Club 84 restaurant</span>
       </div>
-      <div class="card">
-        <span class="code-badge"><i class="fas fa-beer"></i> AVP-84-BAR-SB</span>
-        <h3>Public Sports Bar</h3>
-        <p>Facing common area · open to public + members · projector & large TV screen · full bar service</p>
-      </div>
-      <div class="card">
-        <span class="code-badge"><i class="fas fa-lock"></i> AVP-84-BAR-PVT</span>
-        <h3>Private Bar (Members / players / officials)</h3>
-        <p>Permanent TVs, billiard tables, sports bar effect. <strong>No commercial kitchen</strong> → small bite food (cold snacks, pies heated only).</p>
-        <span class="badge-warning"><i class="fas fa-utensils"></i> Limited kitchen</span>
-      </div>
-      <div class="card">
-        <span class="code-badge"><i class="fas fa-chalkboard-user"></i> AVP-84-RM-DSR</span>
-        <h3>Doyle Street Room</h3>
-        <p>Multi‑purpose private room (under construction) – bookable via app</p>
-      </div>
-      <div class="card">
-        <span class="code-badge"><i class="fas fa-chalkboard-user"></i> AVP-84-RM-AJR</span>
-        <h3>AJ Davis Reserve Room</h3>
-        <p>Multi‑purpose private room (under construction) – adjacent to private bar area</p>
-      </div>
-      <div class="card">
-        <span class="code-badge"><i class="fas fa-table-tennis"></i> AVP-84-BAR-PVT-BILLIARD-01</span>
-        <h3>Billiard table (Private bar)</h3>
-        <p>Reservation optional · first come, first served during busy hours</p>
-      </div>
-    </div>
-    <div class="booking-form" style="background:#eef2ff;">
-      <i class="fas fa-info-circle"></i> <strong>Why a coding system?</strong> All digital signage, inventory (glasses, kegs), maintenance tickets and future app bookings use these unique codes. Example: <code>AVP-84-RM-DSR</code> for Doyle Street Room.
-    </div>
-  </div>
-
-  <!-- ========= 2) ROOMS BOOKING PANEL (Doyle & AJ Davis) ========= -->
-  <div id="rooms-pane" class="tab-pane">
-    <h2><i class="fas fa-calendar-alt"></i> Book a private room</h2>
-    <p>Two premium rooms located below Avondale Heights Soccer Club offices (adjacent to private bar).</p>
-    <div class="grid-cards">
-      <div class="card">
-        <span class="code-badge">AVP-84-RM-DSR</span>
-        <h3>Doyle Street Room</h3>
-        <p>Capacity: 20 pax · ideal for team meetings & small events</p>
-      </div>
-      <div class="card">
-        <span class="code-badge">AVP-84-RM-AJR</span>
-        <h3>AJ Davis Reserve Room</h3>
-        <p>Capacity: 25 pax · flexible layout, TV & seating</p>
-      </div>
-    </div>
-    <div class="booking-form">
-      <h3><i class="fas fa-pen-alt"></i> Request room booking</h3>
-      <form id="roomBookingForm">
-        <div class="form-group">
-          <label>Room code</label>
-          <select id="roomCodeSelect">
-            <option value="AVP-84-RM-DSR">Doyle Street Room (AVP-84-RM-DSR)</option>
-            <option value="AVP-84-RM-AJR">AJ Davis Reserve Room (AVP-84-RM-AJR)</option>
-          </select>
+      <p>A dedicated wall display will honor the club's leadership and life members, visible to all guests in the main restaurant area.</p>
+      <div class="honor-board">
+        <div class="honor-category">
+          <h4><i class="fas fa-gavel"></i> Presidents</h4>
+          <p>List of all past & current presidents</p>
         </div>
-        <div class="form-group">
-          <label>Date</label>
-          <input type="date" id="bookingDate" required>
+        <div class="honor-category">
+          <h4><i class="fas fa-handshake"></i> Vice Presidents</h4>
+          <p>Honorary recognition</p>
         </div>
-        <div class="form-group">
-          <label>Start time</label>
-          <input type="time" id="startTime" required>
+        <div class="honor-category">
+          <h4><i class="fas fa-coins"></i> Treasurers</h4>
+          <p>Service recognition</p>
         </div>
-        <div class="form-group">
-          <label>End time</label>
-          <input type="time" id="endTime" required>
+        <div class="honor-category">
+          <h4><i class="fas fa-star-of-life"></i> Life Members</h4>
+          <p>Highest distinction</p>
         </div>
-        <div class="form-group">
-          <label>Your name (member / public)</label>
-          <input type="text" id="memberName" placeholder="e.g. John Smith (member #123)" required>
-        </div>
-        <button type="submit"><i class="fas fa-check-circle"></i> Request booking (simulated)</button>
-      </form>
-      <div id="bookingMessage" style="margin-top: 1rem; font-size: 0.9rem;"></div>
+      </div>
+      <p class="badge" style="background: #b45309;">The Honor Board will be unveiled at the official opening ceremony.</p>
     </div>
-    <p class="badge-warning" style="display: inline-block; margin-top: 1rem;"><i class="fas fa-info"></i> Bookings are confirmed by club staff. Private bar access included with room hire.</p>
+
+    <!-- Life membership & Foundation membership tiers -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-id-card"></i>
+        <span>Membership categories – Club 84 Relury Club Card</span>
+      </div>
+      <div class="grid-2col">
+        <div class="membership-tier">
+          <i class="fas fa-crown" style="font-size: 2rem; color: #d4af37;"></i>
+          <h3>Life Member</h3>
+          <div class="price">$10,000</div>
+          <p>One‑time contribution</p>
+          <div class="discount"><i class="fas fa-percent"></i> 20% discount on all food & beverage at Club 84</div>
+          <p style="margin-top: 0.8rem; font-size: 0.85rem;">+ Name on Life Members board + voting rights</p>
+        </div>
+        <div class="membership-tier">
+          <i class="fas fa-gem" style="font-size: 2rem; color: #2c7a4d;"></i>
+          <h3>Foundation Member</h3>
+          <div class="price">$5,000</div>
+          <p>One‑time contribution</p>
+          <div class="discount"><i class="fas fa-percent"></i> 10% discount on all food & beverage at Club 84</div>
+          <p style="margin-top: 0.8rem; font-size: 0.85rem;">+ Foundation Member recognition + priority bookings</p>
+        </div>
+        <div class="membership-tier">
+          <i class="fas fa-users" style="font-size: 2rem; color: #3b82f6;"></i>
+          <h3>Generic Club Member</h3>
+          <div class="price">Annual fee (TBC)</div>
+          <p>Standard membership (Reggio Calabria or Avondale FC)</p>
+          <div class="discount"><i class="fas fa-percent"></i> 10% discount on all food & beverage at Club 84</div>
+        </div>
+      </div>
+      <div class="highlight" style="margin-top: 1rem;">
+        <i class="fas fa-credit-card"></i> <strong>Club 84 Relury Club Card</strong> – all members receive a smart card to access the private soundproofed rooms (Doyle Street & AJ Davis Reserve) and to claim discounts. Life & Foundation members also receive exclusive event invitations.
+      </div>
+    </div>
+
+    <!-- (optional brief reminder of operational summary: match days, food, two rooms) -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-champagne-glasses"></i>
+        <span>Venue highlights (recap for committee)</span>
+      </div>
+      <div class="grid-2col">
+        <div class="card">
+          <h3><i class="fas fa-futbol"></i> 13 match day games</h3>
+          <p>Post‑match food service for opposition, senior men’s & women’s teams, and referees. Food prepared upstairs (pizza oven + ballroom kitchen) – finger food & antipasto platters.</p>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-door-closed"></i> Two soundproofed cocktail rooms</h3>
+          <p>Doyle Street Room & AJ Davis Reserve – each holds 80–100 guests for nightclub/cocktail setup. Fully walled, soundproofed, separate from public bar.</p>
+        </div>
+      </div>
+      <p><strong>Public bar</strong> open Saturdays, Sundays & match days – no membership required to watch sport and have a drink. Private rooms accessible only with Club 84 Relury Club Card (members of Reggio Calabria Club or Avondale FC).</p>
+    </div>
+
+    <div style="background: #1e293b; color: white; border-radius: 1.5rem; padding: 1.5rem; margin-top: 1rem; text-align: center;">
+      <i class="fas fa-chart-simple"></i> <strong>Sportivo Industries Proprietary Limited</strong> – proud to fund and develop Club 84.
+      <p style="margin-top: 0.75rem; font-size: 0.9rem;">Presented to the Committees of Reggio Calabria Club & Avondale Soccer Club · For endorsement and implementation.</p>
+    </div>
   </div>
 
-  <!-- ========= 3) PRIVATE BAR PANEL (no commercial kitchen, billiards, bites) ========= -->
-  <div id="privatebar-pane" class="tab-pane">
-    <h2><i class="fas fa-dice-d6"></i> Private Bar – Sports Lounge <span class="code-badge" style="font-size:0.8rem;">AVP-84-BAR-PVT</span></h2>
-    <p><i class="fas fa-tv"></i> Permanent televisions · <i class="fas fa-table"></i> Billiard tables · <i class="fas fa-beer"></i> Full bar · <i class="fas fa-utensils"></i> <strong>Small bite meals only (no commercial kitchen)</strong> – cold snacks, pre-made sandwiches, pies (microwave), nuts, chips.</p>
-    
-    <div class="grid-cards">
-      <div class="card">
-        <h3><i class="fas fa-cocktail"></i> Drinks menu</h3>
-        <div class="menu-item"><span>Draught beer (Schooner)</span><span class="price">$8.50</span><button class="addDrink" data-name="Draught beer" data-price="8.50">+ order</button></div>
-        <div class="menu-item"><span>Premium wine (glass)</span><span class="price">$9.00</span><button class="addDrink" data-name="Premium wine" data-price="9.00">+ order</button></div>
-        <div class="menu-item"><span>Soft drinks / soda</span><span class="price">$4.00</span><button class="addDrink" data-name="Soft drink" data-price="4.00">+ order</button></div>
-        <div class="menu-item"><span>Bottled craft beer</span><span class="price">$10.00</span><button class="addDrink" data-name="Craft beer" data-price="10.00">+ order</button></div>
-      </div>
-      <div class="card">
-        <h3><i class="fas fa-burger"></i> Small bites (no kitchen)</h3>
-        <div class="menu-item"><span>Beef pie (heated)</span><span class="price">$6.50</span><button class="addFood" data-name="Beef pie" data-price="6.50">+ order</button></div>
-        <div class="menu-item"><span>Party pies (3 pcs)</span><span class="price">$8.00</span><button class="addFood" data-name="Party pies" data-price="8.00">+ order</button></div>
-        <div class="menu-item"><span>Salt & vinegar chips</span><span class="price">$5.00</span><button class="addFood" data-name="Chips" data-price="5.00">+ order</button></div>
-        <div class="menu-item"><span>Mixed nuts / pretzels</span><span class="price">$4.50</span><button class="addFood" data-name="Nuts mix" data-price="4.50">+ order</button></div>
-        <div class="menu-item"><span>Ham & cheese toastie</span><span class="price">$7.00</span><button class="addFood" data-name="Toastie" data-price="7.00">+ order</button></div>
-      </div>
-    </div>
-
-    <!-- Billiard table info -->
-    <div class="booking-form">
-      <h3><i class="fas fa-table"></i> Billiard table (AVP-84-BAR-PVT-BILLIARD-01)</h3>
-      <p>Reserve for 1 hour · free for members, $10 for public (pay at bar).</p>
-      <button id="reserveBilliardBtn" style="background:#2b6e4f;"><i class="fas fa-clock"></i> Request billiard table</button>
-      <div id="billiardMsg" style="margin-top: 0.5rem; font-size:0.85rem;"></div>
-    </div>
-
-    <!-- order cart simulation -->
-    <div class="order-summary" id="privateBarCart">
-      <h4><i class="fas fa-shopping-cart"></i> Your private bar order</h4>
-      <ul id="cartItems" style="list-style: none; margin: 0.5rem 0;"></ul>
-      <p><strong>Total: $<span id="cartTotal">0.00</span></strong></p>
-      <button id="placeOrderBtn" style="background:#2c5a2e;"><i class="fas fa-receipt"></i> Place order (staff notified)</button>
-      <p style="font-size:0.7rem; margin-top:0.5rem;"><i class="fas fa-info-circle"></i> No kitchen – orders are for drinks & pre-packaged bites. Collect at private bar.</p>
-    </div>
-  </div>
-
-  <!-- ========= 4) PUBLIC BAR PANEL ========= -->
-  <div id="publicbar-pane" class="tab-pane">
-    <h2><i class="fas fa-video"></i> Public Sports Bar · The Social Hub <span class="code-badge">AVP-84-BAR-SB</span></h2>
-    <div class="grid-cards">
-      <div class="card">
-        <i class="fas fa-projector" style="font-size:2rem;"></i>
-        <h3>Live projector + big screen</h3>
-        <p>Showing AFL, soccer, rugby & major events. Public welcome.</p>
-        <div class="divider"></div>
-        <p><i class="fas fa-beer"></i> Full bar & snacks available (commercial kitchen supported in public area).</p>
-      </div>
-      <div class="card">
-        <i class="fas fa-users"></i>
-        <h3>Open to all</h3>
-        <p>Members, Avondale FC players, officials & general public. Great atmosphere on match days.</p>
-        <span class="badge-warning">Today's feature: EPL live 10pm</span>
-      </div>
-    </div>
-    <div class="booking-form">
-      <i class="fas fa-tv"></i> <strong>Projector schedule request</strong> – contact club manager to display your event highlights. Code <code>AVP-84-BAR-SB-PROJ</code>.
-    </div>
-  </div>
   <footer>
-    <i class="fas fa-code-branch"></i> Club 84 digital ecosystem · GitHub ready · All facility codes follow AVP-84 hierarchy · Avenger Park, Parkville
+    <i class="fas fa-location-dot"></i> Club 84 @ Reggio Calabria Club, Parkville · Honor Board installed in main restaurant · Life & Foundation memberships now open for expression of interest.
   </footer>
 </div>
-
-<script>
-  // TAB switching
-  const tabs = document.querySelectorAll('.tab-btn');
-  const panes = document.querySelectorAll('.tab-pane');
-
-  tabs.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tabId = btn.getAttribute('data-tab');
-      // remove active from all buttons
-      tabs.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      // hide all panes
-      panes.forEach(pane => pane.classList.remove('active-pane'));
-      // show selected pane
-      document.getElementById(`${tabId}-pane`).classList.add('active-pane');
-    });
-  });
-
-  // Room booking simulation
-  const roomForm = document.getElementById('roomBookingForm');
-  const bookingMsgDiv = document.getElementById('bookingMessage');
-
-  roomForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const roomCode = document.getElementById('roomCodeSelect').value;
-    const date = document.getElementById('bookingDate').value;
-    const start = document.getElementById('startTime').value;
-    const end = document.getElementById('endTime').value;
-    const name = document.getElementById('memberName').value.trim();
-    if (!date || !start || !end || !name) {
-      bookingMsgDiv.innerHTML = '<span style="color:#b91c1c;">⚠️ Please fill all fields.</span>';
-      return;
-    }
-    bookingMsgDiv.innerHTML = `<span style="color:#166534;">✅ Booking request for ${roomCode} on ${date} from ${start} to ${end} by ${name}. Reference #${Math.floor(Math.random()*10000)}. Staff will confirm (simulated).</span>`;
-    roomForm.reset();
-  });
-
-  // PRIVATE BAR CART SYSTEM (no kitchen simulation)
-  let cart = [];
-  const cartItemsList = document.getElementById('cartItems');
-  const cartTotalSpan = document.getElementById('cartTotal');
-
-  function updateCartUI() {
-    cartItemsList.innerHTML = '';
-    let total = 0;
-    cart.forEach((item, idx) => {
-      total += item.price;
-      const li = document.createElement('li');
-      li.style.display = 'flex';
-      li.style.justifyContent = 'space-between';
-      li.style.marginBottom = '8px';
-      li.style.borderBottom = '1px dashed #ddd';
-      li.innerHTML = `<span>${item.name} x1</span><span>$${item.price.toFixed(2)} <button class="removeItem" data-index="${idx}" style="background:#9e2d2d; padding:2px 8px; margin-left:8px; border-radius:20px;">✖</button></span>`;
-      cartItemsList.appendChild(li);
-    });
-    cartTotalSpan.innerText = total.toFixed(2);
-    // attach remove events
-    document.querySelectorAll('.removeItem').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const idx = parseInt(btn.getAttribute('data-index'));
-        cart.splice(idx, 1);
-        updateCartUI();
-      });
-    });
-  }
-
-  function addItemToCart(name, price) {
-    cart.push({ name, price: parseFloat(price) });
-    updateCartUI();
-    // visual feedback
-    const tempMsg = document.createElement('div');
-    tempMsg.innerText = `➕ Added: ${name}`;
-    tempMsg.style.position = 'fixed';
-    tempMsg.style.bottom = '20px';
-    tempMsg.style.right = '20px';
-    tempMsg.style.backgroundColor = '#1a4b6e';
-    tempMsg.style.color = 'white';
-    tempMsg.style.padding = '8px 14px';
-    tempMsg.style.borderRadius = '30px';
-    tempMsg.style.fontSize = '0.8rem';
-    tempMsg.style.zIndex = '999';
-    document.body.appendChild(tempMsg);
-    setTimeout(() => tempMsg.remove(), 1500);
-  }
-
-  // attach listeners to all add drink/food buttons (dynamic)
-  function attachMenuButtons() {
-    document.querySelectorAll('.addDrink').forEach(btn => {
-      btn.removeEventListener('click', window.drinkHandler);
-      const handler = () => {
-        const name = btn.getAttribute('data-name');
-        const price = btn.getAttribute('data-price');
-        addItemToCart(name, price);
-      };
-      btn.addEventListener('click', handler);
-      btn.drinkHandler = handler;
-    });
-    document.querySelectorAll('.addFood').forEach(btn => {
-      btn.removeEventListener('click', window.foodHandler);
-      const handler = () => {
-        const name = btn.getAttribute('data-name');
-        const price = btn.getAttribute('data-price');
-        addItemToCart(name, price);
-      };
-      btn.addEventListener('click', handler);
-      btn.foodHandler = handler;
-    });
-  }
-
-  attachMenuButtons();
-
-  // place order button
-  const placeOrderBtn = document.getElementById('placeOrderBtn');
-  placeOrderBtn.addEventListener('click', () => {
-    if (cart.length === 0) {
-      alert('Cart is empty. Add some drinks or bites from private bar menu.');
-      return;
-    }
-    const total = cart.reduce((sum, i) => sum + i.price, 0);
-    const orderSummary = cart.map(i => i.name).join(', ');
-    alert(`🍻 Order placed at Private Bar (AVP-84-BAR-PVT)\nItems: ${orderSummary}\nTotal: $${total.toFixed(2)}\nStaff will prepare your order. Please collect at private bar counter.`);
-    cart = [];
-    updateCartUI();
-  });
-
-  // billiard table reservation simulation
-  const reserveBilliardBtn = document.getElementById('reserveBilliardBtn');
-  const billiardMsg = document.getElementById('billiardMsg');
-  reserveBilliardBtn.addEventListener('click', () => {
-    billiardMsg.innerHTML = '<span style="color:#0f5b2e;">🎱 Billiard table requested (AVP-84-BAR-PVT-BILLIARD-01). Please see bartender to confirm time slot. Free for members, $10 public.</span>';
-    setTimeout(() => {
-      billiardMsg.innerHTML = '';
-    }, 4000);
-  });
-
-  // additional note: if any new dynamic menu elements appear, reattach (but static already)
-  // Also we keep coding system info and full consistency
-</script>
 </body>
 </html>
