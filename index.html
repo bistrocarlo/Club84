@@ -17,7 +17,7 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #f0f2f5;
+      background: #eef2f5;
       color: #1e2a3e;
       line-height: 1.4;
       padding: 2rem 1.5rem;
@@ -32,7 +32,7 @@
       overflow: hidden;
     }
 
-    /* True royal blue (Azzurro) – like Italian national team & Avondale FC */
+    /* True royal blue + Italian flag bottom bar */
     .hero {
       background: linear-gradient(135deg, #0055A4 0%, #003f7f 100%);
       color: white;
@@ -116,6 +116,7 @@
       padding: 1.2rem 1.5rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       border: 1px solid #eef2f6;
+      transition: transform 0.1s ease;
     }
 
     .card h3 {
@@ -229,6 +230,25 @@
       min-width: 100px;
     }
 
+    /* lighting & library specific */
+    .lighting-suggestion {
+      background: #1a1a2e;
+      color: #eee;
+      border-radius: 1.2rem;
+      padding: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .color-swatch {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      margin-right: 8px;
+      vertical-align: middle;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
     footer {
       background: #f8fafc;
       padding: 1rem 2rem;
@@ -247,7 +267,7 @@
 </head>
 <body>
 <div class="presentation-container">
-  <!-- Royal blue header with Italian tricolor bar -->
+  <!-- Hero with royal blue & Italian flag -->
   <div class="hero">
     <h1><i class="fas fa-futbol"></i> Club 84</h1>
     <p class="tagline">President & Social Club · Avondale FC @ Reggio Calabria Club, Parkville</p>
@@ -258,7 +278,7 @@
   </div>
 
   <div class="content">
-    <!-- Super Club Capacity Snapshot -->
+    <!-- Capacity Snapshot (each room 80-100, no combined) -->
     <div class="section">
       <div class="section-title">
         <i class="fas fa-chart-line"></i>
@@ -269,7 +289,7 @@
           <div class="metric">2</div>
           <h3>Soundproofed cocktail rooms</h3>
           <p>Doyle Street Room & AJ Davis Reserve</p>
-          <p><strong>80–100 pax each</strong> (nightclub setup)<br>Fully walled + acoustic isolation</p>
+          <p><strong>80–100 guests each</strong> (nightclub / cocktail setup)<br>Fully walled + acoustic isolation</p>
         </div>
         <div class="card">
           <div class="metric">13</div>
@@ -278,21 +298,41 @@
           <p class="badge" style="margin-top:0.5rem;">Hot food for players on match days</p>
         </div>
         <div class="card">
-          <div class="metric">300+</div>
-          <h3>Combined event capacity</h3>
-          <p>Both rooms + public bar area can host 300+ for major functions (cocktail style)</p>
+          <div class="metric">2</div>
+          <h3>Public areas</h3>
+          <p>Sports bar (TVs & projector) + <strong>Bistro area</strong> for casual dining</p>
         </div>
       </div>
     </div>
 
-    <!-- Comprehensive cocktail menu -->
+    <!-- Public area: Sports bar + Bistro -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-building"></i>
+        <span>Public area · Sports bar & bistro</span>
+      </div>
+      <div class="grid-2col">
+        <div class="card">
+          <i class="fas fa-tv" style="font-size:1.8rem; color:#0055A4;"></i>
+          <h3>Sports Bar</h3>
+          <p>Large projector & multiple TV screens · live sport · open to public on weekends & match days</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-utensils" style="font-size:1.8rem; color:#0055A4;"></i>
+          <h3>Bistro Area</h3>
+          <p>Casual seating · same comprehensive cocktail menu available · no membership required</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comprehensive cocktail menu (no mention of external kitchens) -->
     <div class="section">
       <div class="section-title">
         <i class="fas fa-utensils"></i>
         <span>Cocktail party menu · Extensive selection</span>
       </div>
       <div class="highlight">
-        <p><strong>A beautiful comprehensive menu</strong> – all prepared as finger food & shared platters:</p>
+        <p><strong>A beautiful comprehensive menu</strong> – perfect for functions, match days, and bistro dining:</p>
         <div class="menu-grid">
           <span class="menu-category">🍕 Wood-fired pizzas</span>
           <span class="menu-category">🍘 Arancini</span>
@@ -310,36 +350,69 @@
           <span class="menu-category">🥒 Pickled vegetables</span>
           <span class="menu-category">🧀 Cheeses & accompaniments</span>
         </div>
-        <p style="margin-top: 0.8rem;"><i class="fas fa-check-circle" style="color:#0055A4;"></i> Ideal for cocktail parties, corporate events, and private celebrations.</p>
       </div>
     </div>
 
-    <!-- Two private rooms + public bar -->
+    <!-- Two soundproofed rooms (private) -->
     <div class="section">
       <div class="section-title">
         <i class="fas fa-door-closed"></i>
-        <span>Premium facilities</span>
+        <span>Private event spaces · Soundproofed</span>
       </div>
       <div class="grid-2col">
         <div class="card">
           <i class="fas fa-champagne-glasses" style="font-size:1.8rem; color:#0055A4;"></i>
           <h3>Doyle Street Room</h3>
           <p>80‑100 guests · private bar · DJ booth · separate entrance</p>
-          <p class="badge">Soundproofed</p>
+          <p class="badge">Fully soundproofed</p>
         </div>
         <div class="card">
           <i class="fas fa-music" style="font-size:1.8rem; color:#0055A4;"></i>
           <h3>AJ Davis Reserve Room</h3>
           <p>80‑100 guests · identical spec · adjoins private lounge</p>
-          <p class="badge">Soundproofed</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-tv" style="font-size:1.8rem; color:#0055A4;"></i>
-          <h3>Public Sports Bar</h3>
-          <p>Projector + TV screens · open weekends & match days to public · no membership required for entry</p>
+          <p class="badge">Fully soundproofed</p>
         </div>
       </div>
       <div class="italian-strip"></div>
+    </div>
+
+    <!-- Nightclub Atmosphere & Lighting Design (new) -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-lightbulb"></i>
+        <span>Nightclub atmosphere · Lighting & sound</span>
+      </div>
+      <div class="lighting-suggestion">
+        <p><strong>Suggested color scheme for nightclub feel:</strong></p>
+        <p>
+          <span class="color-swatch" style="background:#0055A4;"></span> Royal Blue (signature)<br>
+          <span class="color-swatch" style="background:#9b59b6;"></span> Violet / Purple (disco accents)<br>
+          <span class="color-swatch" style="background:#f39c12;"></span> Amber / Gold (warm mood lighting)<br>
+          <span class="color-swatch" style="background:#ecf0f1;"></span> Cool white (for memorabilia displays)
+        </p>
+        <p><strong>Lighting fixtures & effects:</strong> RGB LED wash lights, moving head spots, laser effects, and programmable <strong>disco lighting</strong> with strobe options. <strong>Mood lighting</strong> (dim‑to‑warm) along the bar and bistro areas. <strong>Surround sound</strong> system with zone control – high‑quality speakers in each room, subwoofers for bass, acoustic treatment to avoid bleed.</p>
+        <p><strong>Fixtures & fittings:</strong> Black ceiling with recessed LED strips, mirrored accents, modern pendant lights over the bistro, and illuminated bar counters. All dimmable to transition from relaxed lounge to energetic nightclub.</p>
+      </div>
+    </div>
+
+    <!-- Avondale Heritage Library (memorabilia) -->
+    <div class="section">
+      <div class="section-title">
+        <i class="fas fa-archive"></i>
+        <span>Avondale Heritage Library · Memorabilia wall</span>
+      </div>
+      <div class="card" style="background:#fdfaf6;">
+        <i class="fas fa-trophy" style="font-size:2rem; color:#d4af37;"></i>
+        <h3>Walk through history</h3>
+        <p>A dedicated library / display area showcasing:</p>
+        <ul style="margin: 0.5rem 0 0 1.2rem;">
+          <li>📋 <strong>Past shirts</strong> – every Avondale FC jersey from the club’s foundation</li>
+          <li>🏆 <strong>Trophies & medals</strong> – premierships, cup wins, individual honours</li>
+          <li>🏁 <strong>Historic flags</strong> – Italian and Australian supporters’ banners, match‑used flags</li>
+          <li>📸 <strong>Photo panels & match programs</strong> – celebrating legends and memorable games</li>
+        </ul>
+        <p style="margin-top:0.8rem;">The library will be adjacent to the bistro, with glass display cabinets and soft spotlighting, creating a proud, nostalgic atmosphere for members and guests.</p>
+      </div>
     </div>
 
     <!-- Junior birthday parties -->
@@ -355,7 +428,7 @@
       </div>
     </div>
 
-    <!-- Honor board + membership tiers -->
+    <!-- Honor board & membership tiers -->
     <div class="section">
       <div class="section-title">
         <i class="fas fa-medal"></i>
@@ -406,7 +479,7 @@
       <div class="grid-2col">
         <div class="card">
           <h3><i class="fas fa-door-open"></i> Public access</h3>
-          <p>Saturdays, Sundays & match days – main sports bar open to all. No membership needed to enjoy drinks & live sport.</p>
+          <p>Saturdays, Sundays & match days – sports bar & bistro open to all. No membership needed for entry or food.</p>
         </div>
         <div class="card">
           <h3><i class="fas fa-id-card"></i> Private rooms access</h3>
@@ -422,7 +495,7 @@
     </div>
   </div>
   <footer>
-    <i class="fas fa-futbol"></i> Avondale FC royal blue · Italian tricolor heritage · Hosted by the Members Lounge, Reggio Calabria Club · Junior birthday parties available
+    <i class="fas fa-futbol"></i> Avondale FC royal blue · Italian tricolor heritage · Hosted by the Members Lounge, Reggio Calabria Club · Junior birthday parties · Heritage library
   </footer>
 </div>
 </body>
