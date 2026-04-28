@@ -22,42 +22,19 @@
             border: 1px solid #e8dcc8;
         }
         .invitation-header {
-            background: linear-gradient(135deg, #5c4633, #8b7355);
-            color: #f5f0e8;
-            padding: 50px 30px 40px;
+            background: linear-gradient(135deg, #8b7355, #c4a882);
+            color: white;
+            padding: 40px 30px;
             text-align: center;
+            border-bottom: 3px solid #d4c4a8;
         }
-        .invitation-header .crest {
-            margin-bottom: 25px;
-        }
-        .invitation-header .hosts {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            margin: 25px 0 20px;
-        }
-        .invitation-header .request {
-            font-style: italic;
-            font-size: 1.08rem;
-            margin: 25px 0 35px;
-        }
-        .invitation-header h1 {
-            font-size: 3rem;
-            font-weight: normal;
-            letter-spacing: 4px;
-            margin: 20px 0 25px;
-        }
-        .invitation-header .date {
-            font-size: 1.45rem;
-            letter-spacing: 2px;
-            margin: 25px 0;
-        }
-        .wedding-details { 
-            padding: 40px 30px; 
-            text-align: center; 
-            border-bottom: 1px solid #e8dcc8; 
-            line-height: 1.7;
-        }
-        .wedding-details strong { color: #5c4633; }
+        .invitation-header h1 { font-size: 2rem; letter-spacing: 2px; font-weight: normal; }
+        .invitation-header p { font-size: 0.9rem; opacity: 0.9; font-style: italic; }
+        .wedding-details { padding: 30px; text-align: center; border-bottom: 1px solid #e8dcc8; }
+        .wedding-details h2 { font-size: 1.4rem; color: #8b7355; margin-bottom: 20px; font-weight: normal; }
+        .wedding-details .date { font-size: 1.3rem; color: #5a4a35; margin: 15px 0; }
+        .wedding-details .church, .wedding-details .reception { margin: 15px 0; line-height: 1.5; color: #6b5a45; }
+        .wedding-details .reception { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e8dcc8; }
         .form-body { padding: 30px; }
         .code-section { text-align: center; margin-bottom: 30px; }
         .code-section input {
@@ -96,7 +73,8 @@
             cursor: pointer;
             margin-top: 15px;
         }
-        button:hover { background: #6b5a45; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        button:hover:not(:disabled) { background: #6b5a45; }
         .success-message { background: #d4edda; color: #155724; padding: 20px; border-radius: 4px; text-align: center; margin-bottom: 20px; display: none; }
         .error-message { background: #f8d7da; color: #721c24; padding: 15px; border-radius: 4px; margin-bottom: 20px; display: none; }
         .info-message { background: #d1ecf1; color: #0c5460; padding: 15px; border-radius: 4px; margin-bottom: 20px; display: none; }
@@ -104,14 +82,58 @@
         .guest-names-list { margin-top: 15px; }
         .guest-name-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
         .guest-name-row input { flex: 1; }
-        .footer { text-align: center; color: #9b8a75; font-size: 0.8rem; padding: 20px; border-top: 1px solid #e8dcc8; }
+        .footer { text-align: center; color: #9b8a75; font-size: 0.7rem; padding: 20px; border-top: 1px solid #e8dcc8; }
         .back-link { text-align: center; margin-top: 20px; }
         .back-link a { color: #8b7355; text-decoration: none; }
+        .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 0.8s linear infinite; margin-right: 8px; vertical-align: middle; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; justify-content: center; align-items: center; }
+        .loading-spinner { background: white; padding: 20px 40px; border-radius: 8px; font-family: Georgia, serif; }
+        
+        /* Admin Styles */
+        .admin-container { max-width: 1400px; margin: 0 auto; }
+        .admin-header { background: linear-gradient(135deg, #8b7355, #c4a882); color: white; padding: 30px; border-radius: 4px; margin-bottom: 30px; text-align: center; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 4px; text-align: center; border: 1px solid #e8dcc8; }
+        .stat-number { font-size: 2rem; font-weight: bold; color: #8b7355; }
+        .tabs { display: flex; gap: 5px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn { background: #e8dcc8; border: none; padding: 12px 25px; border-radius: 4px; cursor: pointer; font-weight: bold; color: #5a4a35; }
+        .tab-btn.active { background: #8b7355; color: white; }
+        .tab-content { display: none; background: white; border-radius: 4px; padding: 25px; border: 1px solid #e8dcc8; }
+        .tab-content.active { display: block; }
+        .guest-table-container { overflow-x: auto; max-height: 500px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e8dcc8; }
+        th { background: #fefcf8; color: #5a4a35; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+        .status-pending { background: #f39c12; color: white; }
+        .status-sent { background: #3498db; color: white; }
+        .status-replied { background: #27ae60; color: white; }
+        .filter-bar { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-bar input, .filter-bar select { flex: 1; min-width: 150px; padding: 10px; border: 1px solid #d4c4a8; border-radius: 4px; }
+        .btn-sm { padding: 5px 10px; font-size: 0.8rem; margin: 2px; width: auto; display: inline-block; cursor: pointer; border: none; border-radius: 4px; }
+        .btn-green { background: #27ae60; color: white; }
+        .btn-blue { background: #3498db; color: white; }
+        .btn-red { background: #e74c3c; color: white; }
+        .add-guest-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; align-items: end; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: white; border-radius: 4px; padding: 25px; max-width: 500px; width: 90%; }
+        .modal-content textarea { width: 100%; height: 180px; margin: 15px 0; }
+        .edit-modal-content { background: white; border-radius: 4px; padding: 25px; max-width: 450px; width: 90%; }
+        .edit-modal-content input, .edit-modal-content select { width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid #d4c4a8; border-radius: 4px; }
+        .sms-buttons { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-sms-direct { background: #25D366; color: white; border: none; }
+        .action-buttons { display: flex; gap: 10px; margin-top: 10px; }
+        hr { margin: 15px 0; }
+        .login-box { max-width: 400px; margin: 100px auto; background: white; padding: 40px; border-radius: 4px; text-align: center; border: 1px solid #e8dcc8; }
+        .login-box input { width: 100%; padding: 15px; margin: 15px 0; border: 1px solid #d4c4a8; border-radius: 4px; }
         .admin-link { position: fixed; bottom: 20px; right: 20px; background: #8b7355; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-size: 0.8rem; font-family: 'Georgia', serif; }
-        @media (max-width: 600px) { 
-            .address-row, .address-row-3 { grid-template-columns: 1fr; gap: 10px; }
-            .invitation-header h1 { font-size: 2.4rem; letter-spacing: 2px; }
-        }
+        .code-type-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; margin-left: 5px; }
+        .code-single { background: #3498db; color: white; }
+        .code-couple { background: #27ae60; color: white; }
+        .code-family { background: #f39c12; color: white; }
+        .code-extended { background: #9b59b6; color: white; }
+        @media (max-width: 600px) { .address-row, .address-row-3 { grid-template-columns: 1fr; gap: 10px; } }
     </style>
 </head>
 <body>
@@ -137,6 +159,9 @@
         const GUESTS_COLLECTION = "wedding_guests";
         const RESPONSES_COLLECTION = "guest_responses";
         const ADMIN_PASSWORD = "LauraDaniel2026";
+        
+        // Rate limiting storage
+        const submissionTracker = new Map();
 
         const preloadedGuests = [
             { name: "Gianni Laverde", type: "single", maxGuests: 1 },
@@ -208,8 +233,19 @@
         let allGuests = [];
         let allResponses = [];
         let currentEditGuestId = null;
-        let currentMaxGuests = 1;
-        let currentCodeType = "single";
+
+        function showLoading(show, message = "Loading...") {
+            let existing = document.querySelector(".loading-overlay");
+            if (show) {
+                if (existing) existing.remove();
+                let overlay = document.createElement("div");
+                overlay.className = "loading-overlay";
+                overlay.innerHTML = `<div class="loading-spinner"><div class="spinner"></div> ${message}</div>`;
+                document.body.appendChild(overlay);
+            } else {
+                if (existing) existing.remove();
+            }
+        }
 
         function generateCode(name, type) {
             let typeCode = "";
@@ -234,7 +270,12 @@
 
         function escapeHtml(str) {
             if (!str) return "";
-            return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]);
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === "&") return "&amp;";
+                if (m === "<") return "&lt;";
+                if (m === ">") return "&gt;";
+                return m;
+            });
         }
 
         function escapeForJS(str) {
@@ -242,11 +283,27 @@
             return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
         }
 
+        function formatAustralianAddress(unit, street, suburb, city, state, postcode) {
+            let parts = [];
+            if (unit && street) parts.push(`${unit} ${street}`);
+            else if (street) parts.push(street);
+            if (suburb) parts.push(suburb);
+            if (city && city !== suburb) parts.push(city);
+            let statePostcode = "";
+            if (state && postcode) statePostcode = `${state} ${postcode}`;
+            else if (state) statePostcode = state;
+            else if (postcode) statePostcode = postcode;
+            if (statePostcode) parts.push(statePostcode);
+            return parts.join(", ");
+        }
+
         async function seedGuests() {
             try {
+                showLoading(true, "Setting up guest list...");
                 const snapshot = await getDocs(collection(db, GUESTS_COLLECTION));
                 if (snapshot.empty) {
-                    for (let g of preloadedGuests) {
+                    for (let i = 0; i < preloadedGuests.length; i++) {
+                        let g = preloadedGuests[i];
                         let code = generateCode(g.name, g.type);
                         await addDoc(collection(db, GUESTS_COLLECTION), {
                             name: g.name,
@@ -260,47 +317,39 @@
                             createdAt: new Date().toISOString()
                         });
                     }
-                    console.log("Seeded " + preloadedGuests.length + " guests");
+                    console.log("Seeded " + preloadedGuests.length + " guests with codes");
                 }
             } catch (e) {
                 console.error("Seed error:", e);
+            } finally {
+                showLoading(false);
             }
         }
 
+        // Guest Form
         function renderGuestForm() {
             document.getElementById("app").innerHTML = `
                 <div class="invitation-card">
                     <div class="invitation-header">
-                        <div class="crest">
-                            <img src="https://i.imgur.com/0zK8vLq.png" alt="Daniel & Laura Monogram" style="width:180px;height:auto;">
-                        </div>
-                        <div class="hosts">
-                            MR MARIO AND MRS ENZA ROSSIMEL<br>
-                            <span style="font-size:0.95rem;opacity:0.9;">Together with</span><br>
-                            MR CARLO AND MRS MICHELLE PAVIA
-                        </div>
-                        <p class="request">
-                            Request the pleasure of your company<br>
-                            to celebrate the marriage of
-                        </p>
-                        <h1>DANIEL &amp; LAURA</h1>
-                        <div class="date">
-                            SATURDAY, 3RD OCTOBER 2026
-                        </div>
+                        <h1>Daniel & Laura</h1>
+                        <p>request the pleasure of your company</p>
                     </div>
-
                     <div class="wedding-details">
-                        <strong>CEREMONY TO COMMENCE AT 12 NOON</strong><br>
-                        PLEASE ARRIVE BY 11:45 AM<br><br>
-                        <strong>ST MONICA'S CATHOLIC CHURCH</strong><br>
-                        820 MT ALEXANDER ROAD, MOONEE PONDS VIC 3039<br><br>
-
-                        <strong style="margin-top:30px;display:block;">RECEPTION TO FOLLOW AT 6:00 PM</strong><br><br>
-                        <strong>FIOR</strong><br>
-                        476 BRUNSWICK ROAD, PARKVILLE VIC 3052<br><br>
-                        <em>Formal Attire</em>
+                        <h2>Celebration of Marriage</h2>
+                        <div class="date">Saturday, 3rd October 2026</div>
+                        <div class="church">
+                            <strong>Ceremony at 12 noon</strong><br>
+                            Please arrive by 11:45 am<br>
+                            St Monica's Catholic Church<br>
+                            820 Mt Alexander Road, Moonee Ponds VIC 3039
+                        </div>
+                        <div class="reception">
+                            <strong>Reception to follow at 6:30 pm</strong><br>
+                            Fior<br>
+                            476 Brunswick Road, Parkville VIC 3052<br>
+                            <em>Formal Attire</em>
+                        </div>
                     </div>
-
                     <div class="form-body">
                         <div id="guestSuccessMsg" class="success-message"></div>
                         <div id="guestErrorMsg" class="error-message"></div>
@@ -314,7 +363,7 @@
                         </div>
 
                         <div id="addressFormSection" style="display: none;">
-                            <div id="guestWelcome" style="background:#fefcf8;padding:15px;margin-bottom:20px;text-align:center;border:1px solid #e8dcc8;">
+                            <div id="guestWelcome" style="background: #fefcf8; padding: 15px; margin-bottom: 20px; text-align: center; border: 1px solid #e8dcc8;">
                                 <strong id="welcomeName"></strong>
                             </div>
                             <div id="limitWarning" class="limit-warning"></div>
@@ -326,7 +375,9 @@
 
                             <div class="form-group">
                                 <label>Number of guests attending (including yourself)</label>
-                                <select id="guestCount"></select>
+                                <select id="guestCount">
+                                    <option value="1">1 guest</option>
+                                </select>
                             </div>
 
                             <div id="guestNamesSection">
@@ -337,12 +388,12 @@
                             <div class="form-group">
                                 <label>Postal Address</label>
                                 <div class="address-row">
-                                    <input type="text" id="unitNumber" placeholder="Unit/Flat">
+                                    <input type="text" id="unitNumber" placeholder="Unit/Flat/House number">
                                     <input type="text" id="streetAddress" placeholder="Street address">
                                 </div>
                                 <div class="address-row">
                                     <input type="text" id="suburb" placeholder="Suburb">
-                                    <input type="text" id="city" placeholder="City">
+                                    <input type="text" id="city" placeholder="City (optional)">
                                 </div>
                                 <div class="address-row-3">
                                     <select id="state">
@@ -371,22 +422,24 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="footer">
                         <p>Please respond by 1st August 2026</p>
                     </div>
                 </div>
             `;
 
-            document.getElementById("verifyCodeBtn").onclick = verifyCode;
-            document.getElementById("backToCodeBtn").onclick = (e) => {
+            document.getElementById("verifyCodeBtn").onclick = function() { verifyCode(); };
+            document.getElementById("backToCodeBtn").onclick = function(e) {
                 e.preventDefault();
                 document.getElementById("addressFormSection").style.display = "none";
                 document.getElementById("codeEntrySection").style.display = "block";
                 document.getElementById("inviteCode").value = "";
             };
-            document.getElementById("submitAddressBtn").onclick = submitAddress;
+            document.getElementById("submitAddressBtn").onclick = function() { submitAddress(); };
         }
+
+        let currentMaxGuests = 1;
+        let currentCodeType = "single";
 
         async function verifyCode() {
             let code = document.getElementById("inviteCode").value.trim().toUpperCase();
@@ -399,6 +452,7 @@
                 return;
             }
 
+            showLoading(true, "Verifying code...");
             try {
                 const q = query(collection(db, GUESTS_COLLECTION), where("code", "==", code));
                 const snapshot = await getDocs(q);
@@ -406,20 +460,19 @@
                 if (snapshot.empty) {
                     errorDiv.innerText = "Invalid invitation code. Please check the SMS we sent you.";
                     errorDiv.style.display = "block";
+                    showLoading(false);
                     return;
                 }
 
-                const guestDoc = snapshot.docs[0];
-                const guest = guestDoc.data();
-                const guestId = guestDoc.id;
-
+                const guest = snapshot.docs[0].data();
+                const guestId = snapshot.docs[0].id;
                 currentMaxGuests = guest.maxGuests || 1;
                 currentCodeType = guest.codeType || "single";
                 const typeInfo = getCodeTypeInfo(currentCodeType);
-
+                
                 const rQuery = query(collection(db, RESPONSES_COLLECTION), where("guestCode", "==", code));
                 const rSnapshot = await getDocs(rQuery);
-
+                
                 sessionStorage.setItem("guestCode", code);
                 sessionStorage.setItem("guestId", guestId);
                 sessionStorage.setItem("guestName", guest.name);
@@ -427,8 +480,8 @@
                 sessionStorage.setItem("codeType", currentCodeType);
 
                 document.getElementById("welcomeName").innerHTML = `Welcome ${escapeHtml(guest.name)}!<br><small>${typeInfo.icon} ${typeInfo.name} Invitation</small>`;
-                document.getElementById("limitWarning").innerHTML = `✨ <strong>Your invitation includes</strong> ${typeInfo.desc}.`;
-
+                document.getElementById("limitWarning").innerHTML = `✨ <strong>Your invitation includes</strong> ${typeInfo.desc}. Please let us know the names of everyone attending below.`;
+                
                 let countSelect = document.getElementById("guestCount");
                 countSelect.innerHTML = "";
                 for (let i = 1; i <= currentMaxGuests; i++) {
@@ -437,8 +490,11 @@
                     option.textContent = i === 1 ? "1 guest (just me)" : `${i} guests`;
                     countSelect.appendChild(option);
                 }
-                countSelect.onchange = () => updateGuestNameFields(parseInt(countSelect.value));
-
+                
+                countSelect.onchange = function() {
+                    updateGuestNameFields(parseInt(this.value));
+                };
+                
                 if (!rSnapshot.empty) {
                     let existing = rSnapshot.docs[0].data();
                     document.getElementById("fullName").value = existing.fullName || "";
@@ -454,13 +510,15 @@
                         countSelect.value = existing.guestCount;
                         updateGuestNameFields(existing.guestCount);
                         let names = existing.guestNames || [];
-                        let inputs = document.querySelectorAll(".guest-name");
-                        for (let i = 0; i < names.length && i < inputs.length; i++) {
-                            inputs[i].value = names[i];
+                        let nameInputs = document.querySelectorAll(".guest-name");
+                        for (let i = 0; i < names.length && i < nameInputs.length; i++) {
+                            nameInputs[i].value = names[i];
                         }
                     }
-                    document.getElementById("guestInfoMsg").innerText = "You have already submitted your details. You can update them below.";
-                    document.getElementById("guestInfoMsg").style.display = "block";
+                    
+                    let infoDiv = document.getElementById("guestInfoMsg");
+                    infoDiv.innerText = "You have already submitted your details. You can update them below.";
+                    infoDiv.style.display = "block";
                 } else {
                     updateGuestNameFields(1);
                 }
@@ -472,12 +530,15 @@
                 errorDiv.innerText = "Something went wrong. Please try again.";
                 errorDiv.style.display = "block";
                 console.error(err);
+            } finally {
+                showLoading(false);
             }
         }
 
         function updateGuestNameFields(count) {
             const container = document.getElementById("guestNamesList");
             container.innerHTML = "";
+            
             for (let i = 0; i < count; i++) {
                 const div = document.createElement("div");
                 div.className = "guest-name-row";
@@ -497,109 +558,306 @@
             let postcode = document.getElementById("postcode").value.trim();
             let contact = document.getElementById("contact").value.trim();
             let guestCount = parseInt(document.getElementById("guestCount").value);
-
-            let guestNames = Array.from(document.querySelectorAll(".guest-name")).map(input => input.value.trim()).filter(Boolean);
-
+            
+            let guestCode = sessionStorage.getItem("guestCode");
+            
+            // Rate limiting check
+            let lastSubmit = submissionTracker.get(guestCode);
+            if (lastSubmit && (Date.now() - lastSubmit) < 30000) {
+                let errorDiv = document.getElementById("guestErrorMsg");
+                errorDiv.innerText = "Please wait 30 seconds before submitting again.";
+                errorDiv.style.display = "block";
+                return;
+            }
+            
+            let fullAddress = formatAustralianAddress(unitNumber, streetAddress, suburb, city, state, postcode);
+            
+            let guestNames = [];
+            let nameInputs = document.querySelectorAll(".guest-name");
+            for (let i = 0; i < nameInputs.length; i++) {
+                let guestName = nameInputs[i].value.trim();
+                if (guestName) guestNames.push(guestName);
+            }
+            
             if (guestNames.length !== guestCount) {
                 alert(`Please provide names for all ${guestCount} guest(s).`);
                 return;
             }
-
-            let guestCode = sessionStorage.getItem("guestCode");
+            
             let guestId = sessionStorage.getItem("guestId");
             let guestName = sessionStorage.getItem("guestName");
-
+            
             let errorDiv = document.getElementById("guestErrorMsg");
             let successDiv = document.getElementById("guestSuccessMsg");
             errorDiv.style.display = "none";
             successDiv.style.display = "none";
 
-            if (!fullName || !streetAddress || !postcode) {
-                errorDiv.innerText = "Please fill in all required fields (Name, Street, Postcode).";
+            if (!fullName) {
+                errorDiv.innerText = "Please enter your name";
+                errorDiv.style.display = "block";
+                return;
+            }
+            if (!streetAddress) {
+                errorDiv.innerText = "Please enter your street address";
+                errorDiv.style.display = "block";
+                return;
+            }
+            if (!postcode) {
+                errorDiv.innerText = "Please enter your postcode";
                 errorDiv.style.display = "block";
                 return;
             }
 
+            showLoading(true, "Saving your details...");
             try {
                 const rQuery = query(collection(db, RESPONSES_COLLECTION), where("guestCode", "==", guestCode));
                 const rSnapshot = await getDocs(rQuery);
 
-                let fullAddress = [unitNumber, streetAddress, suburb, city, state, postcode].filter(Boolean).join(", ");
-
                 let responseData = {
-                    guestCode, guestId, guestName, codeType: currentCodeType, maxAllowed: currentMaxGuests,
-                    fullName, unitNumber, streetAddress, suburb, city, state, postcode, fullAddress,
-                    guestCount, guestNames, contact, submittedAt: new Date().toISOString()
+                    guestCode: guestCode,
+                    guestId: guestId,
+                    guestName: guestName,
+                    codeType: currentCodeType,
+                    maxAllowed: currentMaxGuests,
+                    fullName: fullName,
+                    unitNumber: unitNumber,
+                    streetAddress: streetAddress,
+                    suburb: suburb,
+                    city: city,
+                    state: state,
+                    postcode: postcode,
+                    fullAddress: fullAddress,
+                    guestCount: guestCount,
+                    guestNames: guestNames,
+                    contact: contact,
+                    submittedAt: new Date().toISOString()
                 };
 
                 if (!rSnapshot.empty) {
                     await updateDoc(doc(db, RESPONSES_COLLECTION, rSnapshot.docs[0].id), responseData);
-                    successDiv.innerText = "Thank you! Your details have been updated.";
+                    successDiv.innerText = "Thank you! Your details have been updated. Your formal invitation will be mailed to you soon.";
                 } else {
                     await addDoc(collection(db, RESPONSES_COLLECTION), responseData);
                     await updateDoc(doc(db, GUESTS_COLLECTION, guestId), { replied: true, status: "replied" });
-                    successDiv.innerText = "Thank you! We have received your details. We look forward to celebrating with you!";
+                    successDiv.innerText = "Thank you! We have received your details. Your formal invitation will be mailed to you soon. We look forward to celebrating with you!";
                 }
                 successDiv.style.display = "block";
+                submissionTracker.set(guestCode, Date.now());
 
             } catch (err) {
                 errorDiv.innerText = "Something went wrong. Please try again.";
                 errorDiv.style.display = "block";
                 console.error(err);
+            } finally {
+                showLoading(false);
             }
         }
 
-        // ==================== ADMIN DASHBOARD ====================
+        // Admin Dashboard
         function renderAdminLogin() {
             document.getElementById("app").innerHTML = `
-                <div class="login-box" style="max-width:400px;margin:100px auto;background:white;padding:40px;border-radius:4px;text-align:center;border:1px solid #e8dcc8;">
+                <div class="login-box">
                     <h2>Admin Login</h2>
-                    <input type="password" id="adminPassword" placeholder="Enter admin password" style="width:100%;padding:15px;margin:15px 0;border:1px solid #d4c4a8;border-radius:4px;">
-                    <button id="loginBtn" style="width:100%;padding:15px;background:#8b7355;color:white;border:none;border-radius:4px;cursor:pointer;">Login</button>
+                    <input type="password" id="adminPassword" placeholder="Enter admin password">
+                    <button id="loginBtn">Login</button>
                 </div>
+                <a href="?admin=false" class="admin-link">Back to Guest Page</a>
             `;
-            document.getElementById("loginBtn").onclick = () => {
+            document.getElementById("loginBtn").onclick = function() {
                 if (document.getElementById("adminPassword").value === ADMIN_PASSWORD) {
                     sessionStorage.setItem("adminLoggedIn", "true");
                     renderAdminDashboard();
-                } else alert("Wrong password");
+                } else { alert("Wrong password"); }
             };
         }
 
         async function loadAdminData() {
-            const guestsSnap = await getDocs(collection(db, GUESTS_COLLECTION));
-            allGuests = guestsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-            const responsesSnap = await getDocs(collection(db, RESPONSES_COLLECTION));
-            allResponses = responsesSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-            for (let guest of allGuests) {
-                guest.responseStatus = allResponses.some(r => r.guestCode === guest.code) ? "replied" : (guest.smsSent ? "sent" : "pending");
+            showLoading(true, "Loading guest data...");
+            try {
+                const guestsSnap = await getDocs(collection(db, GUESTS_COLLECTION));
+                allGuests = guestsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                const responsesSnap = await getDocs(collection(db, RESPONSES_COLLECTION));
+                allResponses = responsesSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                for (let guest of allGuests) {
+                    guest.responseStatus = allResponses.some(r => r.guestCode === guest.code) ? "replied" : (guest.smsSent ? "sent" : "pending");
+                }
+                renderAdminTables();
+                updateAdminStats();
+            } finally {
+                showLoading(false);
             }
-            renderAdminTables();
-            updateAdminStats();
         }
 
         function renderAdminTables() {
-            // (Full admin table code omitted for brevity in this response but is included in the actual file you copy)
-            // You can keep your original admin rendering functions if you prefer.
-            console.log("Admin tables rendered");
+            let tbody = document.getElementById("guestTableBody");
+            let html = "";
+            for (let guest of allGuests) {
+                let typeInfo = getCodeTypeInfo(guest.codeType);
+                let statusClass = guest.responseStatus === "replied" ? "status-replied" : (guest.responseStatus === "sent" ? "status-sent" : "status-pending");
+                let statusText = guest.responseStatus === "replied" ? "Address Received" : (guest.responseStatus === "sent" ? "SMS Sent" : "Pending");
+                html += `<tr>
+                    <td><code>${escapeHtml(guest.code)}</code> <span class="code-type-badge code-${guest.codeType}">${typeInfo.icon} ${typeInfo.name}</span></td>
+                    <td><strong>${escapeHtml(guest.name)}</strong> (${typeInfo.desc})</td>
+                    <td>${guest.phone || '<span style="color:#999;">Not set</span>'}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td><button class="btn-sm btn-blue" onclick="openEdit('${guest.id}')">Edit</button>
+                        <button class="btn-sm btn-green" onclick="openSms('${guest.code}', '${escapeForJS(guest.name)}', '${escapeForJS(guest.phone || "")}')">SMS</button>
+                    </td>
+                </tr>`;
+            }
+            tbody.innerHTML = html;
+            
+            let repliesBody = document.getElementById("repliesTableBody");
+            let repliesHtml = "";
+            for (let r of allResponses) {
+                repliesHtml += `<tr>
+                    <td><code>${escapeHtml(r.guestCode)}</code></td>
+                    <td>${escapeHtml(r.guestName)}</td>
+                    <td><strong>${escapeHtml(r.fullName || "")}</strong></td>
+                    <td style="max-width:250px;">${escapeHtml(r.fullAddress || "")}</td>
+                    <td>${r.guestCount || 1} guests</td>
+                </tr>`;
+            }
+            repliesBody.innerHTML = repliesHtml || '<tr><td colspan="5">No responses yet</td></tr>';
         }
 
+        function updateAdminStats() {
+            let total = allGuests.length;
+            let sent = allGuests.filter(g => g.smsSent).length;
+            let replied = allResponses.length;
+            document.getElementById("statsContainer").innerHTML = `
+                <div class="stat-card"><div class="stat-number">${total}</div><div>Total Invited</div></div>
+                <div class="stat-card"><div class="stat-number">${sent}</div><div>SMS Sent</div></div>
+                <div class="stat-card"><div class="stat-number">${replied}</div><div>Addresses Received</div></div>
+                <div class="stat-card"><div class="stat-number">${total - replied}</div><div>Awaiting Reply</div></div>
+            `;
+        }
+
+        window.openEdit = function(id) {
+            currentEditGuestId = id;
+            let guest = allGuests.find(g => g.id === id);
+            document.getElementById("editGuestName").value = guest.name;
+            document.getElementById("editGuestPhone").value = guest.phone || "";
+            document.getElementById("editCodeType").value = guest.codeType;
+            document.getElementById("editMaxGuests").value = guest.maxGuests;
+            document.getElementById("editModal").style.display = "flex";
+        };
+
+        window.openSms = function(code, name, phone) {
+            if (!phone) { alert("Please add a mobile number first. Click Edit to add."); return; }
+            let appUrl = window.location.origin;
+            let guest = allGuests.find(g => g.code === code);
+            let typeInfo = getCodeTypeInfo(guest?.codeType || "single");
+            let msg = `Dear ${name.split(' ')[0]},\n\nWe are hoping to celebrate our wedding with you on Saturday, 3rd October 2026 at St Monica's Catholic Church, Moonee Ponds.\n\nBefore we send the formal invitation by mail, could you please confirm your postal address?\n\nPlease visit: ${appUrl}\nEnter your code: ${code}\n\nYour invitation includes ${typeInfo.desc}. We would be truly honoured to have you there.\n\nWarmly,\nDaniel & Laura`;
+            document.getElementById("smsGuestName").innerText = name;
+            document.getElementById("smsPhone").innerText = phone;
+            document.getElementById("smsMessage").value = msg;
+            document.getElementById("smsModal").style.display = "flex";
+            if (guest && !guest.smsSent) {
+                updateDoc(doc(db, GUESTS_COLLECTION, guest.id), { smsSent: true, status: "sent" });
+                setTimeout(loadAdminData, 500);
+            }
+        };
+
         function renderAdminDashboard() {
-            // Full admin dashboard would go here (same as your original)
-            alert("Admin dashboard loaded. Full version available on request if needed.");
+            document.getElementById("app").innerHTML = `
+                <div class="admin-container">
+                    <div class="admin-header"><h1>Admin Dashboard</h1><p>Manage Guests with Guest Limits</p></div>
+                    <div class="stats" id="statsContainer"></div>
+                    <div class="tabs"><button class="tab-btn active" data-tab="guests">Guest List</button><button class="tab-btn" data-tab="replies">Responses</button></div>
+                    <div id="guests" class="tab-content active">
+                        <div class="filter-bar"><input type="text" id="searchGuest" placeholder="Search..."><select id="filterStatus"><option value="all">All</option><option value="pending">Pending</option><option value="sent">SMS Sent</option><option value="replied">Replied</option></select><button id="refreshBtn" class="btn-sm btn-blue">Refresh</button></div>
+                        <div class="add-guest-form"><input type="text" id="newGuestName" placeholder="Guest name"><select id="newCodeType"><option value="single">Single (1 guest)</option><option value="couple">Couple (2 guests)</option><option value="family">Family (4 guests)</option><option value="extended">Extended (6 guests)</option></select><input type="tel" id="newGuestPhone" placeholder="Mobile"><button id="addGuestBtn" class="btn-sm btn-green">Add</button></div>
+                        <div class="guest-table-container"><table><thead><tr><th>Code</th><th>Guest</th><th>Mobile</th><th>Status</th><th>Actions</th></tr></thead><tbody id="guestTableBody"></tbody></table></div>
+                    </div>
+                    <div id="replies" class="tab-content"><div class="guest-table-container"><table><thead><tr><th>Code</th><th>Guest Name</th><th>Verified Name</th><th>Address</th><th>Guests</th></tr></thead><tbody id="repliesTableBody"></tbody></table><button id="exportCsvBtn" class="btn-sm btn-green" style="margin-top:15px;">Export CSV</button></div></div>
+                </div>
+                <div id="editModal" class="modal"><div class="edit-modal-content"><h3>Edit Guest</h3><label>Name:</label><input type="text" id="editGuestName"><label>Phone:</label><input type="tel" id="editGuestPhone"><label>Code Type:</label><select id="editCodeType"><option value="single">Single (1 guest)</option><option value="couple">Couple (2 guests)</option><option value="family">Family (4 guests)</option><option value="extended">Extended (6 guests)</option></select><label>Max Guests:</label><input type="number" id="editMaxGuests" min="1" max="10"><div class="action-buttons"><button id="saveEditBtn" class="btn-sm btn-green">Save</button><button id="closeEditModal" class="btn-sm btn-red">Cancel</button></div><hr><button id="deleteGuestBtn" class="btn-sm btn-red">Delete Guest</button></div></div>
+                <div id="smsModal" class="modal"><div class="modal-content"><h3>SMS to Guest</h3><p><strong id="smsGuestName"></strong></p><p>Mobile: <span id="smsPhone"></span></p><textarea id="smsMessage" readonly></textarea><div class="sms-buttons"><button id="copySmsBtn" class="btn-sm btn-blue">Copy</button><button id="sendDirectSmsBtn" class="btn-sm btn-sms-direct">Open SMS App</button><button id="closeSmsModal" class="btn-sm btn-red">Close</button></div></div></div>
+                <a href="?admin=false" class="admin-link">Exit Admin</a>
+            `;
+            
+            document.getElementById("addGuestBtn").onclick = async () => {
+                let name = document.getElementById("newGuestName").value.trim();
+                let type = document.getElementById("newCodeType").value;
+                let phone = document.getElementById("newGuestPhone").value.trim();
+                if (!name) return;
+                let maxMap = { single: 1, couple: 2, family: 4, extended: 6 };
+                let code = generateCode(name, type);
+                showLoading(true, "Adding guest...");
+                try {
+                    await addDoc(collection(db, GUESTS_COLLECTION), { name, code, codeType: type, maxGuests: maxMap[type], phone, status: "pending", smsSent: false, replied: false, createdAt: new Date().toISOString() });
+                    document.getElementById("newGuestName").value = ""; document.getElementById("newGuestPhone").value = "";
+                    await loadAdminData();
+                } finally {
+                    showLoading(false);
+                }
+            };
+            document.getElementById("refreshBtn").onclick = loadAdminData;
+            document.getElementById("exportCsvBtn").onclick = () => {
+                let csv = [["Code", "Guest Name", "Type", "Verified Name", "Address", "Guest Count", "Guest Names"]];
+                for (let r of allResponses) {
+                    csv.push([r.guestCode, r.guestName, r.codeType, r.fullName, r.fullAddress, r.guestCount, (r.guestNames || []).join("; ")]);
+                }
+                let content = csv.map(row => row.map(c => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
+                let blob = new Blob(["\uFEFF" + content], { type: "text/csv" });
+                let url = URL.createObjectURL(blob);
+                let a = document.createElement("a");
+                a.href = url;
+                a.download = `wedding_guests_${new Date().toISOString().slice(0,10)}.csv`;
+                a.click();
+                URL.revokeObjectURL(url);
+            };
+            document.getElementById("closeEditModal").onclick = () => document.getElementById("editModal").style.display = "none";
+            document.getElementById("closeSmsModal").onclick = () => document.getElementById("smsModal").style.display = "none";
+            document.getElementById("saveEditBtn").onclick = async () => {
+                let newName = document.getElementById("editGuestName").value.trim();
+                let newPhone = document.getElementById("editGuestPhone").value.trim();
+                let newType = document.getElementById("editCodeType").value;
+                let newMax = parseInt(document.getElementById("editMaxGuests").value);
+                showLoading(true, "Saving changes...");
+                try {
+                    await updateDoc(doc(db, GUESTS_COLLECTION, currentEditGuestId), { name: newName, phone: newPhone, codeType: newType, maxGuests: newMax });
+                    document.getElementById("editModal").style.display = "none";
+                    await loadAdminData();
+                } finally {
+                    showLoading(false);
+                }
+            };
+            document.getElementById("deleteGuestBtn").onclick = async () => {
+                if (!confirm("Delete this guest?")) return;
+                let guest = allGuests.find(g => g.id === currentEditGuestId);
+                showLoading(true, "Deleting guest...");
+                try {
+                    if (guest) {
+                        let resp = allResponses.find(r => r.guestCode === guest.code);
+                        if (resp) await deleteDoc(doc(db, RESPONSES_COLLECTION, resp.id));
+                    }
+                    await deleteDoc(doc(db, GUESTS_COLLECTION, currentEditGuestId));
+                    document.getElementById("editModal").style.display = "none";
+                    await loadAdminData();
+                } finally {
+                    showLoading(false);
+                }
+            };
+            document.getElementById("copySmsBtn").onclick = () => { navigator.clipboard.writeText(document.getElementById("smsMessage").value); alert("Copied!"); };
+            document.getElementById("sendDirectSmsBtn").onclick = () => { let p = document.getElementById("smsPhone").innerText; let m = document.getElementById("smsMessage").value; window.location.href = "sms:" + p + "?body=" + encodeURIComponent(m); };
+            document.getElementById("searchGuest").oninput = () => renderAdminTables();
+            document.getElementById("filterStatus").onchange = () => renderAdminTables();
+            let btns = document.querySelectorAll(".tab-btn");
+            btns.forEach(b => b.onclick = function() { btns.forEach(btn => btn.classList.remove("active")); this.classList.add("active"); document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active")); document.getElementById(this.dataset.tab).classList.add("active"); });
             loadAdminData();
         }
 
-        // Initialize
+        window.onclick = function(e) { if (e.target.classList && e.target.classList.contains("modal")) e.target.style.display = "none"; };
+
         (async function() {
             await seedGuests();
             let isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
             if (isAdmin) {
                 if (sessionStorage.getItem("adminLoggedIn") === "true") renderAdminDashboard();
                 else renderAdminLogin();
-            } else {
-                renderGuestForm();
-            }
+            } else { renderGuestForm(); }
         })();
     </script>
 </body>
