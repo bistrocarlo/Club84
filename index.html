@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Wedding Seating Manager | Live Firebase</title>
+    <title>Wedding Seating Manager | Firebase Data Loader</title>
     <style>
         * {
             margin: 0;
@@ -102,10 +102,6 @@
             color: white;
         }
 
-        .btn-pdf:hover {
-            background: #c0392b;
-        }
-
         .search-box {
             background: white;
             border-radius: 20px;
@@ -126,11 +122,6 @@
             font-size: 1rem;
             font-family: inherit;
             background: #fefcf8;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #c9a84c;
         }
 
         .search-results {
@@ -155,24 +146,6 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
-        }
-
-        .result-name {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .result-group {
-            font-size: 0.7rem;
-            color: #c9a84c;
-            margin-left: 8px;
-        }
-
-        .assign-table-select {
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: 1px solid #e8dcc8;
-            font-size: 0.75rem;
         }
 
         .manual-guest-form {
@@ -215,15 +188,10 @@
             cursor: pointer;
         }
 
-        .manual-guest-tag:hover {
-            background: #c8e6c9;
-        }
-
         .delete-icon {
             margin-left: 6px;
             color: #e74c3c;
             cursor: pointer;
-            font-size: 0.7rem;
         }
 
         .main-layout {
@@ -299,10 +267,6 @@
             border-color: #a5d6a7;
         }
 
-        .guest-chip:hover {
-            background: #e8dcc8;
-        }
-
         .empty-table {
             color: #bfae8e;
             text-align: center;
@@ -338,6 +302,18 @@
             font-size: 0.8rem;
         }
 
+        .debug-panel {
+            background: #2c2418;
+            color: #e8dcc8;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -355,7 +331,6 @@
             background: white;
             padding: 20px 30px;
             border-radius: 30px;
-            font-size: 1rem;
         }
 
         .toast {
@@ -382,62 +357,6 @@
             .main-layout { flex-direction: column; }
             .guests-area { position: static; }
         }
-
-        /* PDF Export Styles */
-        .pdf-export {
-            font-family: 'Georgia', 'Times New Roman', Times, serif;
-            padding: 40px;
-            background: white;
-        }
-        .pdf-header {
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #c9a84c;
-            padding-bottom: 20px;
-        }
-        .pdf-header h1 { font-size: 28px; color: #2c2418; }
-        .pdf-header p { color: #8b7355; margin-top: 8px; }
-        .pdf-stats {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        .pdf-stat {
-            text-align: center;
-            padding: 10px 20px;
-            background: #faf5ea;
-            border-radius: 12px;
-        }
-        .pdf-stat-number { font-size: 24px; font-weight: bold; color: #c9a84c; }
-        .pdf-tables-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .pdf-table-card {
-            border: 1px solid #e8dcc8;
-            border-radius: 12px;
-            overflow: hidden;
-            page-break-inside: avoid;
-        }
-        .pdf-table-header {
-            background: #faf5ea;
-            padding: 10px 12px;
-            font-weight: bold;
-            border-bottom: 1px solid #e8dcc8;
-        }
-        .pdf-table-guests { padding: 10px 12px; min-height: 80px; }
-        .pdf-guest-name { font-size: 11px; padding: 4px 0; border-bottom: 1px dotted #f0e6d8; }
-        .pdf-footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e8dcc8;
-            font-size: 10px;
-            color: #bfae8e;
-        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
@@ -446,9 +365,8 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, doc, setDoc, getDoc, query, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyAH0rBpJUh3sRpBlQgrymQM1RLBDBiAPmE",
         authDomain: "daniel-and-laura.firebaseapp.com",
@@ -471,6 +389,15 @@
     let tableMap = new Map();
     let guestTableMap = new Map();
     let currentSearch = "";
+    let debugLogs = [];
+
+    function addDebugLog(msg) {
+        debugLogs.unshift(`[${new Date().toLocaleTimeString()}] ${msg}`);
+        if (debugLogs.length > 20) debugLogs.pop();
+        const debugEl = document.getElementById('debugPanel');
+        if (debugEl) debugEl.innerHTML = debugLogs.map(l => `→ ${l}`).join('<br>');
+        console.log(msg);
+    }
 
     function showToast(msg) {
         let toast = document.querySelector('.toast');
@@ -487,7 +414,7 @@
         if (show && !el) {
             let div = document.createElement('div');
             div.className = 'loading-overlay';
-            div.innerHTML = '<div class="spinner">⏳ Loading...</div>';
+            div.innerHTML = '<div class="spinner">⏳ Loading from Firebase...</div>';
             document.body.appendChild(div);
         } else if (!show && el) el.remove();
     }
@@ -498,21 +425,24 @@
             tableMap.set(i.toString(), { name: `Table ${i}`, guests: [] });
         }
         tableMap.set(BRIDAL_TABLE, { name: "👰 Bridal Table", guests: [] });
+        addDebugLog("Initialized fresh empty tables");
     }
 
     function loadManualFromStorage() {
-        const saved = localStorage.getItem('wedding_manual_guests_v4');
+        const saved = localStorage.getItem('wedding_manual_guests_final');
         if (saved) {
             try {
                 manualGuests = JSON.parse(saved);
+                addDebugLog(`Loaded ${manualGuests.length} manual guests from localStorage`);
             } catch(e) { manualGuests = []; }
         } else {
             manualGuests = [];
+            addDebugLog("No manual guests found in localStorage");
         }
     }
 
     function saveManualToStorage() {
-        localStorage.setItem('wedding_manual_guests_v4', JSON.stringify(manualGuests));
+        localStorage.setItem('wedding_manual_guests_final', JSON.stringify(manualGuests));
     }
 
     function addManualGuest(firstName, lastName) {
@@ -540,6 +470,7 @@
             isManual: true
         });
         
+        addDebugLog(`Added manual guest: ${fullName}`);
         showToast(`✓ Added ${fullName}`);
         renderApp();
         return true;
@@ -562,17 +493,22 @@
             guestTableMap.delete(guestId);
         }
         
+        addDebugLog(`Deleted manual guest: ${guestId}`);
         showToast("Guest removed");
         renderApp();
     }
 
     async function loadFirebaseGuests() {
         try {
+            addDebugLog("Loading guests from wedding_guests collection...");
             const guestsSnap = await getDocs(collection(db, "wedding_guests"));
             const guests = guestsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            addDebugLog(`Found ${guests.length} guest records`);
             
+            addDebugLog("Loading responses from guest_responses collection...");
             const responsesSnap = await getDocs(collection(db, "guest_responses"));
             const responses = responsesSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            addDebugLog(`Found ${responses.length} response records`);
             
             const attendees = [];
             
@@ -597,50 +533,71 @@
                     });
                 }
             }
+            
+            addDebugLog(`Built ${attendees.length} individual attendees from responses`);
             return attendees;
         } catch (err) {
-            console.error("Firebase error:", err);
+            addDebugLog(`ERROR loading Firebase guests: ${err.message}`);
+            console.error(err);
             return [];
         }
     }
 
-    // CRITICAL: Load existing seating from Firebase - THIS IS THE LIVE DATA
+    // CRITICAL: Try multiple paths to find saved seating data
     async function loadSeatingFromFirebase() {
-        try {
-            const seatingDoc = await getDoc(doc(db, "wedding_seating", "master"));
-            if (seatingDoc.exists()) {
-                const data = seatingDoc.data();
-                if (data.tableMap) {
-                    const loadedMap = new Map();
-                    const rawMap = data.tableMap;
+        const pathsToTry = [
+            { collection: "wedding_seating", docId: "master" },
+            { collection: "table_assignments", docId: "master_seating" },
+            { collection: "seating_plan", docId: "current" },
+            { collection: "wedding_seating", docId: "seating" }
+        ];
+        
+        for (const path of pathsToTry) {
+            try {
+                addDebugLog(`Trying to load seating from ${path.collection}/${path.docId}...`);
+                const seatingDoc = await getDoc(doc(db, path.collection, path.docId));
+                if (seatingDoc.exists()) {
+                    const data = seatingDoc.data();
+                    addDebugLog(`✅ Found seating data in ${path.collection}/${path.docId}`);
                     
-                    // Reconstruct the map from saved data
-                    for (const [tid, tableData] of Object.entries(rawMap)) {
-                        loadedMap.set(tid, { 
-                            name: tableData.name, 
-                            guests: tableData.guests || [] 
-                        });
-                    }
+                    // Try different possible data structures
+                    let rawMap = null;
+                    if (data.tableMap) rawMap = data.tableMap;
+                    else if (data.tableAssignments) rawMap = data.tableAssignments;
+                    else if (data.tables) rawMap = data.tables;
+                    else if (data.seating) rawMap = data.seating;
                     
-                    // Rebuild guestTableMap
-                    guestTableMap.clear();
-                    for (const [tid, table] of loadedMap.entries()) {
-                        if (table.guests) {
-                            for (const g of table.guests) {
-                                if (g.id) guestTableMap.set(g.id, tid);
+                    if (rawMap) {
+                        const loadedMap = new Map();
+                        for (const [tid, tableData] of Object.entries(rawMap)) {
+                            loadedMap.set(tid, { 
+                                name: tableData.name || (tid === BRIDAL_TABLE ? "👰 Bridal Table" : `Table ${tid}`),
+                                guests: tableData.guests || [] 
+                            });
+                        }
+                        
+                        // Rebuild guestTableMap
+                        guestTableMap.clear();
+                        for (const [tid, table] of loadedMap.entries()) {
+                            if (table.guests) {
+                                for (const g of table.guests) {
+                                    if (g && g.id) guestTableMap.set(g.id, tid);
+                                }
                             }
                         }
+                        
+                        const totalSeated = Array.from(loadedMap.values()).reduce((sum, t) => sum + (t.guests?.length || 0), 0);
+                        addDebugLog(`✅ Loaded ${loadedMap.size} tables with ${totalSeated} seated guests`);
+                        return loadedMap;
                     }
-                    
-                    console.log("Loaded seating from Firebase. Tables:", loadedMap.size);
-                    return loadedMap;
                 }
+            } catch (err) {
+                addDebugLog(`Failed to read ${path.collection}/${path.docId}: ${err.message}`);
             }
-            return null;
-        } catch (err) {
-            console.error("Error loading seating:", err);
-            return null;
         }
+        
+        addDebugLog("⚠️ No existing seating data found in any collection");
+        return null;
     }
 
     async function saveSeatingToFirebase() {
@@ -656,8 +613,10 @@
                 totalGuests: allGuests.length,
                 seatedCount: Array.from(tableMap.values()).reduce((sum, t) => sum + t.guests.length, 0)
             });
-            showToast("✓ Seating saved to Firebase! Changes are now live.");
+            addDebugLog(`✅ Saved seating to Firebase: ${tableMap.size} tables, ${Array.from(tableMap.values()).reduce((sum, t) => sum + t.guests.length, 0)} seated`);
+            showToast("✓ Seating saved to Firebase!");
         } catch (err) {
+            addDebugLog(`❌ Save failed: ${err.message}`);
             alert("Save failed: " + err.message);
         } finally {
             showLoading(false);
@@ -683,6 +642,7 @@
         
         table.guests.push({ ...guest });
         guestTableMap.set(guest.id, tableId);
+        addDebugLog(`Assigned ${guest.name} to ${table.name}`);
         renderApp();
         return true;
     }
@@ -690,6 +650,8 @@
     function removeGuestFromTable(guestId, tableId) {
         const table = tableMap.get(tableId);
         if (table) {
+            const guest = table.guests.find(g => g.id === guestId);
+            if (guest) addDebugLog(`Removed ${guest.name} from ${table.name}`);
             table.guests = table.guests.filter(g => g.id !== guestId);
             guestTableMap.delete(guestId);
             renderApp();
@@ -700,6 +662,7 @@
         if (confirm("⚠️ Reset all seating? This will clear all table assignments.")) {
             initTables();
             guestTableMap.clear();
+            addDebugLog("⚠️ All seating reset");
             renderApp();
             showToast("Seating reset");
         }
@@ -735,73 +698,42 @@
         return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
     }
 
-    // PDF Export
     async function exportToPDF() {
         showLoading(true);
         
         const pdfContent = document.createElement('div');
-        pdfContent.className = 'pdf-export';
+        pdfContent.style.cssText = 'font-family: Georgia, Times New Roman, Times, serif; padding: 40px; background: white;';
         
         let totalSeated = 0;
         for (const table of tableMap.values()) totalSeated += table.guests.length;
-        const unassignedCount = getUnassignedGuests().length;
         
         pdfContent.innerHTML = `
-            <div class="pdf-header">
-                <h1>Daniel & Laura · Wedding Seating Plan</h1>
-                <p>Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</p>
+            <div style="text-align:center; margin-bottom:30px; border-bottom:2px solid #c9a84c; padding-bottom:20px;">
+                <h1 style="font-size:28px; color:#2c2418;">Daniel & Laura · Wedding Seating Plan</h1>
+                <p style="color:#8b7355;">Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</p>
             </div>
-            <div class="pdf-stats">
-                <div class="pdf-stat"><div class="pdf-stat-number">${allGuests.length}</div><div>Total Guests</div></div>
-                <div class="pdf-stat"><div class="pdf-stat-number">${totalSeated}</div><div>Seated</div></div>
-                <div class="pdf-stat"><div class="pdf-stat-number">${unassignedCount}</div><div>Unassigned</div></div>
-                <div class="pdf-stat"><div class="pdf-stat-number">${TOTAL_TABLES}</div><div>Guest Tables</div></div>
+            <div style="display:flex; justify-content:space-around; margin-bottom:30px; flex-wrap:wrap;">
+                <div style="text-align:center; padding:10px 20px; background:#faf5ea; border-radius:12px;"><div style="font-size:24px; font-weight:bold; color:#c9a84c;">${allGuests.length}</div><div>Total Guests</div></div>
+                <div style="text-align:center; padding:10px 20px; background:#faf5ea; border-radius:12px;"><div style="font-size:24px; font-weight:bold; color:#c9a84c;">${totalSeated}</div><div>Seated</div></div>
+                <div style="text-align:center; padding:10px 20px; background:#faf5ea; border-radius:12px;"><div style="font-size:24px; font-weight:bold; color:#c9a84c;">${getUnassignedGuests().length}</div><div>Unassigned</div></div>
             </div>
-            <div class="pdf-tables-grid" id="pdfTablesGrid"></div>
-            <div class="pdf-footer">
-                <p>✨ Daniel & Laura's Wedding · 2026 ✨</p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:20px;">
+                ${Array.from(tableMap.entries()).sort((a,b) => {
+                    if (a[0] === BRIDAL_TABLE) return 1;
+                    if (b[0] === BRIDAL_TABLE) return -1;
+                    return parseInt(a[0]) - parseInt(b[0]);
+                }).map(([tid, table]) => `
+                    <div style="border:1px solid #e8dcc8; border-radius:12px; overflow:hidden; page-break-inside:avoid;">
+                        <div style="background:#faf5ea; padding:10px 12px; font-weight:bold; border-bottom:1px solid #e8dcc8;">${table.name} ${tid === BRIDAL_TABLE ? '⭐' : ''} (${table.guests.length} guests)</div>
+                        <div style="padding:10px 12px; min-height:80px;">
+                            ${table.guests.length === 0 ? '<em>No guests assigned</em>' : 
+                                table.guests.map(g => `<div style="font-size:11px; padding:4px 0; border-bottom:1px dotted #f0e6d8;">• ${escapeHtml(g.name)} ${g.isManual ? '(Manual)' : ''}</div>`).join('')
+                            }
+                        </div>
+                    </div>
+                `).join('')}
             </div>
         `;
-        
-        const gridContainer = pdfContent.querySelector('#pdfTablesGrid');
-        const sorted = Array.from(tableMap.keys()).sort((a,b) => {
-            if (a === BRIDAL_TABLE) return 1;
-            if (b === BRIDAL_TABLE) return -1;
-            return parseInt(a) - parseInt(b);
-        });
-        
-        for (const tid of sorted) {
-            const table = tableMap.get(tid);
-            const isBridal = tid === BRIDAL_TABLE;
-            const tableDiv = document.createElement('div');
-            tableDiv.className = 'pdf-table-card';
-            tableDiv.innerHTML = `
-                <div class="pdf-table-header">
-                    ${table.name} ${isBridal ? '⭐' : ''} (${table.guests.length} guests)
-                </div>
-                <div class="pdf-table-guests">
-                    ${table.guests.length === 0 ? '<em>No guests assigned</em>' : 
-                        table.guests.map(g => `<div class="pdf-guest-name">• ${escapeHtml(g.name)} ${g.isManual ? '(Manual)' : ''}</div>`).join('')
-                    }
-                </div>
-            `;
-            gridContainer.appendChild(tableDiv);
-        }
-        
-        const unassigned = getUnassignedGuests();
-        if (unassigned.length > 0) {
-            const unassignedDiv = document.createElement('div');
-            unassignedDiv.style.marginTop = '30px';
-            unassignedDiv.style.padding = '15px';
-            unassignedDiv.style.border = '1px solid #e74c3c';
-            unassignedDiv.style.borderRadius = '12px';
-            unassignedDiv.style.backgroundColor = '#fef5f5';
-            unassignedDiv.innerHTML = `
-                <h3 style="color: #e74c3c;">⚠️ Unassigned Guests (${unassigned.length})</h3>
-                ${unassigned.map(g => `<div style="padding: 4px 0;">• ${escapeHtml(g.name)} (${escapeHtml(g.group)})</div>`).join('')}
-            `;
-            pdfContent.appendChild(unassignedDiv);
-        }
         
         document.body.appendChild(pdfContent);
         
@@ -809,7 +741,7 @@
             margin: [0.5, 0.5, 0.5, 0.5],
             filename: `wedding_seating_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, letterRendering: true },
+            html2canvas: { scale: 2 },
             jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
         };
         
@@ -817,8 +749,7 @@
             await html2pdf().set(opt).from(pdfContent).save();
             showToast("PDF exported successfully!");
         } catch (err) {
-            console.error("PDF error:", err);
-            alert("PDF export failed. Please try again.");
+            alert("PDF export failed: " + err.message);
         } finally {
             pdfContent.remove();
             showLoading(false);
@@ -842,6 +773,8 @@
                     <h1>✨ Daniel & Laura · Wedding Seating ✨</h1>
                     <p>${TOTAL_TABLES} guest tables (${MIN_PER_TABLE}-${MAX_PER_TABLE} seats) + Bridal Table</p>
                 </div>
+                
+                <div id="debugPanel" class="debug-panel">${debugLogs.slice(0, 8).map(l => `→ ${escapeHtml(l)}`).join('<br>')}</div>
                 
                 <div class="stats-bar">
                     <div class="stat"><div class="stat-number">${allGuests.length}</div><div>Total Guests</div></div>
@@ -884,23 +817,17 @@
                 <div id="searchResults" class="search-results ${searchResults.length > 0 ? 'active' : ''}">
                     ${searchResults.map(guest => `
                         <div class="search-result-item">
+                            <div><strong>${escapeHtml(guest.name)}</strong> <small>(${escapeHtml(guest.group)})</small> ${guest.isManual ? '📝' : ''} ${guestTableMap.has(guest.id) ? '✓ Seated' : ''}</div>
                             <div>
-                                <span class="result-name">${escapeHtml(guest.name)}</span>
-                                <span class="result-group">(${escapeHtml(guest.group)})</span>
-                                ${guest.isManual ? '<span style="color:#27ae60; font-size:0.65rem;"> 📝</span>' : ''}
-                                ${guestTableMap.has(guest.id) ? `<span style="color:#27ae60; font-size:0.65rem;"> ✓ Seated</span>` : ''}
-                            </div>
-                            <div>
-                                <select class="assign-select" data-id="${guest.id}" style="width:130px;">
+                                <select class="assign-select" data-id="${guest.id}" style="width:120px;">
                                     <option value="">→ Table</option>
                                     ${allTableOptions.map(t => `<option value="${t}">Table ${t}</option>`).join('')}
                                     <option value="${BRIDAL_TABLE}">👰 Bridal</option>
                                 </select>
-                                <button class="btn" style="padding:6px 12px; margin-left:6px;" data-assign="${guest.id}">Assign</button>
+                                <button class="btn" style="padding:6px 12px;" data-assign="${guest.id}">Assign</button>
                             </div>
                         </div>
                     `).join('')}
-                    ${searchResults.length === 0 && currentSearch ? '<div style="padding:20px; text-align:center; color:#bfae8e;">No guests found</div>' : ''}
                 </div>
                 
                 <div class="main-layout">
@@ -908,14 +835,14 @@
                         <div class="tables-grid" id="tablesGrid"></div>
                     </div>
                     <div class="guests-area">
-                        <h3>📋 Unassigned Guests <span style="font-size:0.7rem;">(${unassigned.length})</span></h3>
+                        <h3>📋 Unassigned Guests (${unassigned.length})</h3>
                         <div id="unassignedList"></div>
                     </div>
                 </div>
             </div>
         `;
         
-        // Render tables grid
+        // Render tables
         const grid = document.getElementById('tablesGrid');
         if (grid) {
             grid.innerHTML = '';
@@ -935,21 +862,16 @@
                         <span>${table.name} ${isBridal ? '⭐' : ''}</span>
                         <span>${table.guests.length} ${!isBridal ? `/ ${MAX_PER_TABLE}` : 'guests'}</span>
                     </div>
-                    <div class="table-guests" id="table-${tid}">
+                    <div class="table-guests">
                         ${table.guests.length === 0 ? '<div class="empty-table">— empty —</div>' : 
-                            table.guests.map(g => `
-                                <span class="guest-chip ${g.isManual ? 'manual' : ''}" data-id="${g.id}" data-table="${tid}">
-                                    ${escapeHtml(g.name)} ${g.isManual ? '📝' : ''} ✖
-                                </span>
-                            `).join('')
+                            table.guests.map(g => `<span class="guest-chip ${g.isManual ? 'manual' : ''}" data-id="${g.id}" data-table="${tid}">${escapeHtml(g.name)} ${g.isManual ? '📝' : ''} ✖</span>`).join('')
                         }
                     </div>
                 `;
                 grid.appendChild(card);
                 
                 card.querySelectorAll('.guest-chip').forEach(chip => {
-                    chip.onclick = (e) => {
-                        e.stopPropagation();
+                    chip.onclick = () => {
                         const id = chip.dataset.id;
                         const tid = chip.dataset.table;
                         if (confirm('Remove this guest?')) removeGuestFromTable(id, tid);
@@ -958,7 +880,7 @@
             }
         }
         
-        // Render unassigned list with ALL tables 1-32
+        // Render unassigned
         const unassignedDiv = document.getElementById('unassignedList');
         if (unassignedDiv) {
             if (unassigned.length === 0) {
@@ -966,11 +888,8 @@
             } else {
                 unassignedDiv.innerHTML = unassigned.map(g => `
                     <div class="guest-list-item">
-                        <div>
-                            <div class="guest-name">${escapeHtml(g.name)} ${g.isManual ? '📝' : ''}</div>
-                            <div class="guest-group">${escapeHtml(g.group)}</div>
-                        </div>
-                        <select id="quickSelect_${g.id.replace(/[^a-zA-Z0-9]/g, '_')}" style="width:100px;">
+                        <div><div class="guest-name">${escapeHtml(g.name)} ${g.isManual ? '📝' : ''}</div><div class="guest-group">${escapeHtml(g.group)}</div></div>
+                        <select id="quick_${g.id.replace(/[^a-zA-Z0-9]/g, '_')}" style="width:100px;">
                             <option value="">Table</option>
                             ${allTableOptions.map(t => `<option value="${t}">${t}</option>`).join('')}
                             <option value="${BRIDAL_TABLE}">👰</option>
@@ -981,13 +900,8 @@
                 
                 for (const g of unassigned) {
                     const btn = unassignedDiv.querySelector(`[data-quick="${g.id}"]`);
-                    const sel = unassignedDiv.querySelector(`#quickSelect_${g.id.replace(/[^a-zA-Z0-9]/g, '_')}`);
-                    if (btn && sel) {
-                        btn.onclick = () => {
-                            if (sel.value) assignGuestToTable(g, sel.value);
-                            else showToast('Select a table');
-                        };
-                    }
+                    const sel = unassignedDiv.querySelector(`#quick_${g.id.replace(/[^a-zA-Z0-9]/g, '_')}`);
+                    if (btn && sel) btn.onclick = () => { if (sel.value) assignGuestToTable(g, sel.value); else showToast('Select a table'); };
                 }
             }
         }
@@ -1008,8 +922,7 @@
         document.querySelectorAll('.delete-icon').forEach(el => {
             el.onclick = (e) => {
                 e.stopPropagation();
-                const id = el.dataset.id;
-                if (confirm('Delete this manual guest?')) deleteManualGuest(id);
+                if (confirm('Delete this manual guest?')) deleteManualGuest(el.dataset.id);
             };
         });
         
@@ -1030,40 +943,31 @@
         });
     }
     
-    // Initialize - Load from Firebase FIRST
     async function init() {
         showLoading(true);
+        addDebugLog("=== Starting Firebase Data Load ===");
         
-        // Load Firebase guests
         const firebaseGuests = await loadFirebaseGuests();
-        
-        // Load manual guests from localStorage
         loadManualFromStorage();
         
-        // Combine all guests
         allGuests = [...firebaseGuests];
         for (const m of manualGuests) {
-            allGuests.push({
-                id: m.id,
-                name: m.name,
-                group: "Manual Entry",
-                isManual: true
-            });
+            allGuests.push({ id: m.id, name: m.name, group: "Manual Entry", isManual: true });
         }
+        addDebugLog(`Total guests: ${allGuests.length} (${firebaseGuests.length} from Firebase, ${manualGuests.length} manual)`);
         
-        // CRITICAL: Load existing seating from Firebase (preserves all saved assignments)
         const savedSeating = await loadSeatingFromFirebase();
         if (savedSeating && savedSeating.size > 0) {
             tableMap = savedSeating;
-            console.log("Using existing seating from Firebase with", tableMap.size, "tables");
+            addDebugLog(`✅ Using existing seating with ${tableMap.size} tables`);
         } else {
             initTables();
-            console.log("No existing seating found, initialized empty tables");
+            addDebugLog(`⚠️ No saved seating found - using empty tables`);
         }
         
         showLoading(false);
         renderApp();
-        showToast("Loaded from Firebase ✓");
+        showToast("Ready! " + (tableMap.size > 0 ? `Loaded ${Array.from(tableMap.values()).reduce((s,t)=>s+t.guests.length,0)} seated guests` : "No saved seating found"));
     }
     
     init();
