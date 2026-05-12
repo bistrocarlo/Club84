@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Wedding Seating Manager | Firebase Data Loader</title>
+    <title>Wedding Seating Manager | Clean Interface</title>
     <style>
         * {
             margin: 0;
@@ -122,6 +122,11 @@
             font-size: 1rem;
             font-family: inherit;
             background: #fefcf8;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #c9a84c;
         }
 
         .search-results {
@@ -267,6 +272,10 @@
             border-color: #a5d6a7;
         }
 
+        .guest-chip:hover {
+            background: #e8dcc8;
+        }
+
         .empty-table {
             color: #bfae8e;
             text-align: center;
@@ -300,18 +309,6 @@
             margin-bottom: 20px;
             color: #b86b2c;
             font-size: 0.8rem;
-        }
-
-        .debug-panel {
-            background: #2c2418;
-            color: #e8dcc8;
-            border-radius: 16px;
-            padding: 12px 18px;
-            margin-bottom: 20px;
-            font-family: monospace;
-            font-size: 0.7rem;
-            max-height: 150px;
-            overflow-y: auto;
         }
 
         .loading-overlay {
@@ -365,7 +362,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, doc, setDoc, getDoc, query, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyAH0rBpJUh3sRpBlQgrymQM1RLBDBiAPmE",
@@ -389,15 +386,6 @@
     let tableMap = new Map();
     let guestTableMap = new Map();
     let currentSearch = "";
-    let debugLogs = [];
-
-    function addDebugLog(msg) {
-        debugLogs.unshift(`[${new Date().toLocaleTimeString()}] ${msg}`);
-        if (debugLogs.length > 20) debugLogs.pop();
-        const debugEl = document.getElementById('debugPanel');
-        if (debugEl) debugEl.innerHTML = debugLogs.map(l => `→ ${l}`).join('<br>');
-        console.log(msg);
-    }
 
     function showToast(msg) {
         let toast = document.querySelector('.toast');
@@ -425,7 +413,6 @@
             tableMap.set(i.toString(), { name: `Table ${i}`, guests: [] });
         }
         tableMap.set(BRIDAL_TABLE, { name: "👰 Bridal Table", guests: [] });
-        addDebugLog("Initialized fresh empty tables");
     }
 
     function loadManualFromStorage() {
@@ -433,11 +420,9 @@
         if (saved) {
             try {
                 manualGuests = JSON.parse(saved);
-                addDebugLog(`Loaded ${manualGuests.length} manual guests from localStorage`);
             } catch(e) { manualGuests = []; }
         } else {
             manualGuests = [];
-            addDebugLog("No manual guests found in localStorage");
         }
     }
 
@@ -470,7 +455,6 @@
             isManual: true
         });
         
-        addDebugLog(`Added manual guest: ${fullName}`);
         showToast(`✓ Added ${fullName}`);
         renderApp();
         return true;
@@ -493,22 +477,17 @@
             guestTableMap.delete(guestId);
         }
         
-        addDebugLog(`Deleted manual guest: ${guestId}`);
         showToast("Guest removed");
         renderApp();
     }
 
     async function loadFirebaseGuests() {
         try {
-            addDebugLog("Loading guests from wedding_guests collection...");
             const guestsSnap = await getDocs(collection(db, "wedding_guests"));
             const guests = guestsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-            addDebugLog(`Found ${guests.length} guest records`);
             
-            addDebugLog("Loading responses from guest_responses collection...");
             const responsesSnap = await getDocs(collection(db, "guest_responses"));
             const responses = responsesSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-            addDebugLog(`Found ${responses.length} response records`);
             
             const attendees = [];
             
@@ -533,39 +512,29 @@
                     });
                 }
             }
-            
-            addDebugLog(`Built ${attendees.length} individual attendees from responses`);
             return attendees;
         } catch (err) {
-            addDebugLog(`ERROR loading Firebase guests: ${err.message}`);
-            console.error(err);
+            console.error("Firebase error:", err);
             return [];
         }
     }
 
-    // CRITICAL: Try multiple paths to find saved seating data
     async function loadSeatingFromFirebase() {
         const pathsToTry = [
             { collection: "wedding_seating", docId: "master" },
             { collection: "table_assignments", docId: "master_seating" },
-            { collection: "seating_plan", docId: "current" },
-            { collection: "wedding_seating", docId: "seating" }
+            { collection: "seating_plan", docId: "current" }
         ];
         
         for (const path of pathsToTry) {
             try {
-                addDebugLog(`Trying to load seating from ${path.collection}/${path.docId}...`);
                 const seatingDoc = await getDoc(doc(db, path.collection, path.docId));
                 if (seatingDoc.exists()) {
                     const data = seatingDoc.data();
-                    addDebugLog(`✅ Found seating data in ${path.collection}/${path.docId}`);
-                    
-                    // Try different possible data structures
                     let rawMap = null;
                     if (data.tableMap) rawMap = data.tableMap;
                     else if (data.tableAssignments) rawMap = data.tableAssignments;
                     else if (data.tables) rawMap = data.tables;
-                    else if (data.seating) rawMap = data.seating;
                     
                     if (rawMap) {
                         const loadedMap = new Map();
@@ -576,7 +545,6 @@
                             });
                         }
                         
-                        // Rebuild guestTableMap
                         guestTableMap.clear();
                         for (const [tid, table] of loadedMap.entries()) {
                             if (table.guests) {
@@ -585,18 +553,13 @@
                                 }
                             }
                         }
-                        
-                        const totalSeated = Array.from(loadedMap.values()).reduce((sum, t) => sum + (t.guests?.length || 0), 0);
-                        addDebugLog(`✅ Loaded ${loadedMap.size} tables with ${totalSeated} seated guests`);
                         return loadedMap;
                     }
                 }
             } catch (err) {
-                addDebugLog(`Failed to read ${path.collection}/${path.docId}: ${err.message}`);
+                // Silent fail
             }
         }
-        
-        addDebugLog("⚠️ No existing seating data found in any collection");
         return null;
     }
 
@@ -613,10 +576,8 @@
                 totalGuests: allGuests.length,
                 seatedCount: Array.from(tableMap.values()).reduce((sum, t) => sum + t.guests.length, 0)
             });
-            addDebugLog(`✅ Saved seating to Firebase: ${tableMap.size} tables, ${Array.from(tableMap.values()).reduce((sum, t) => sum + t.guests.length, 0)} seated`);
             showToast("✓ Seating saved to Firebase!");
         } catch (err) {
-            addDebugLog(`❌ Save failed: ${err.message}`);
             alert("Save failed: " + err.message);
         } finally {
             showLoading(false);
@@ -642,7 +603,6 @@
         
         table.guests.push({ ...guest });
         guestTableMap.set(guest.id, tableId);
-        addDebugLog(`Assigned ${guest.name} to ${table.name}`);
         renderApp();
         return true;
     }
@@ -650,8 +610,6 @@
     function removeGuestFromTable(guestId, tableId) {
         const table = tableMap.get(tableId);
         if (table) {
-            const guest = table.guests.find(g => g.id === guestId);
-            if (guest) addDebugLog(`Removed ${guest.name} from ${table.name}`);
             table.guests = table.guests.filter(g => g.id !== guestId);
             guestTableMap.delete(guestId);
             renderApp();
@@ -662,7 +620,6 @@
         if (confirm("⚠️ Reset all seating? This will clear all table assignments.")) {
             initTables();
             guestTableMap.clear();
-            addDebugLog("⚠️ All seating reset");
             renderApp();
             showToast("Seating reset");
         }
@@ -773,8 +730,6 @@
                     <h1>✨ Daniel & Laura · Wedding Seating ✨</h1>
                     <p>${TOTAL_TABLES} guest tables (${MIN_PER_TABLE}-${MAX_PER_TABLE} seats) + Bridal Table</p>
                 </div>
-                
-                <div id="debugPanel" class="debug-panel">${debugLogs.slice(0, 8).map(l => `→ ${escapeHtml(l)}`).join('<br>')}</div>
                 
                 <div class="stats-bar">
                     <div class="stat"><div class="stat-number">${allGuests.length}</div><div>Total Guests</div></div>
@@ -945,7 +900,6 @@
     
     async function init() {
         showLoading(true);
-        addDebugLog("=== Starting Firebase Data Load ===");
         
         const firebaseGuests = await loadFirebaseGuests();
         loadManualFromStorage();
@@ -954,20 +908,17 @@
         for (const m of manualGuests) {
             allGuests.push({ id: m.id, name: m.name, group: "Manual Entry", isManual: true });
         }
-        addDebugLog(`Total guests: ${allGuests.length} (${firebaseGuests.length} from Firebase, ${manualGuests.length} manual)`);
         
         const savedSeating = await loadSeatingFromFirebase();
         if (savedSeating && savedSeating.size > 0) {
             tableMap = savedSeating;
-            addDebugLog(`✅ Using existing seating with ${tableMap.size} tables`);
         } else {
             initTables();
-            addDebugLog(`⚠️ No saved seating found - using empty tables`);
         }
         
         showLoading(false);
         renderApp();
-        showToast("Ready! " + (tableMap.size > 0 ? `Loaded ${Array.from(tableMap.values()).reduce((s,t)=>s+t.guests.length,0)} seated guests` : "No saved seating found"));
+        showToast("Ready!");
     }
     
     init();
