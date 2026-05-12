@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Wedding Seating Manager | 32 Tables + PDF Export</title>
+    <title>Wedding Seating Manager | Live Firebase</title>
     <style>
         * {
             margin: 0;
@@ -395,14 +395,8 @@
             border-bottom: 2px solid #c9a84c;
             padding-bottom: 20px;
         }
-        .pdf-header h1 {
-            font-size: 28px;
-            color: #2c2418;
-        }
-        .pdf-header p {
-            color: #8b7355;
-            margin-top: 8px;
-        }
+        .pdf-header h1 { font-size: 28px; color: #2c2418; }
+        .pdf-header p { color: #8b7355; margin-top: 8px; }
         .pdf-stats {
             display: flex;
             justify-content: space-around;
@@ -415,11 +409,7 @@
             background: #faf5ea;
             border-radius: 12px;
         }
-        .pdf-stat-number {
-            font-size: 24px;
-            font-weight: bold;
-            color: #c9a84c;
-        }
+        .pdf-stat-number { font-size: 24px; font-weight: bold; color: #c9a84c; }
         .pdf-tables-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -438,15 +428,8 @@
             font-weight: bold;
             border-bottom: 1px solid #e8dcc8;
         }
-        .pdf-table-guests {
-            padding: 10px 12px;
-            min-height: 80px;
-        }
-        .pdf-guest-name {
-            font-size: 11px;
-            padding: 4px 0;
-            border-bottom: 1px dotted #f0e6d8;
-        }
+        .pdf-table-guests { padding: 10px 12px; min-height: 80px; }
+        .pdf-guest-name { font-size: 11px; padding: 4px 0; border-bottom: 1px dotted #f0e6d8; }
         .pdf-footer {
             text-align: center;
             margin-top: 40px;
@@ -456,15 +439,16 @@
             color: #bfae8e;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-<div id="app">Loading wedding seating planner...</div>
+<div id="app">Loading wedding seating planner from Firebase...</div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, getDocs, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+    // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyAH0rBpJUh3sRpBlQgrymQM1RLBDBiAPmE",
         authDomain: "daniel-and-laura.firebaseapp.com",
@@ -517,7 +501,7 @@
     }
 
     function loadManualFromStorage() {
-        const saved = localStorage.getItem('wedding_manual_guests_v3');
+        const saved = localStorage.getItem('wedding_manual_guests_v4');
         if (saved) {
             try {
                 manualGuests = JSON.parse(saved);
@@ -528,7 +512,7 @@
     }
 
     function saveManualToStorage() {
-        localStorage.setItem('wedding_manual_guests_v3', JSON.stringify(manualGuests));
+        localStorage.setItem('wedding_manual_guests_v4', JSON.stringify(manualGuests));
     }
 
     function addManualGuest(firstName, lastName) {
@@ -620,13 +604,25 @@
         }
     }
 
+    // CRITICAL: Load existing seating from Firebase - THIS IS THE LIVE DATA
     async function loadSeatingFromFirebase() {
         try {
             const seatingDoc = await getDoc(doc(db, "wedding_seating", "master"));
             if (seatingDoc.exists()) {
                 const data = seatingDoc.data();
                 if (data.tableMap) {
-                    const loadedMap = new Map(Object.entries(data.tableMap));
+                    const loadedMap = new Map();
+                    const rawMap = data.tableMap;
+                    
+                    // Reconstruct the map from saved data
+                    for (const [tid, tableData] of Object.entries(rawMap)) {
+                        loadedMap.set(tid, { 
+                            name: tableData.name, 
+                            guests: tableData.guests || [] 
+                        });
+                    }
+                    
+                    // Rebuild guestTableMap
                     guestTableMap.clear();
                     for (const [tid, table] of loadedMap.entries()) {
                         if (table.guests) {
@@ -635,6 +631,8 @@
                             }
                         }
                     }
+                    
+                    console.log("Loaded seating from Firebase. Tables:", loadedMap.size);
                     return loadedMap;
                 }
             }
@@ -654,9 +652,11 @@
             }
             await setDoc(doc(db, "wedding_seating", "master"), {
                 tableMap: exportMap,
-                updatedAt: new Date().toISOString()
+                updatedAt: new Date().toISOString(),
+                totalGuests: allGuests.length,
+                seatedCount: Array.from(tableMap.values()).reduce((sum, t) => sum + t.guests.length, 0)
             });
-            showToast("✓ Seating saved to Firebase!");
+            showToast("✓ Seating saved to Firebase! Changes are now live.");
         } catch (err) {
             alert("Save failed: " + err.message);
         } finally {
@@ -735,11 +735,10 @@
         return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
     }
 
-    // PDF Export Function
+    // PDF Export
     async function exportToPDF() {
         showLoading(true);
         
-        // Create PDF content
         const pdfContent = document.createElement('div');
         pdfContent.className = 'pdf-export';
         
@@ -760,8 +759,7 @@
             </div>
             <div class="pdf-tables-grid" id="pdfTablesGrid"></div>
             <div class="pdf-footer">
-                <p>✨ Daniel & Laura's Wedding · ${new Date().getFullYear()} ✨</p>
-                <p>Table capacity: ${MIN_PER_TABLE}-${MAX_PER_TABLE} guests per table | Bridal table included</p>
+                <p>✨ Daniel & Laura's Wedding · 2026 ✨</p>
             </div>
         `;
         
@@ -790,7 +788,6 @@
             gridContainer.appendChild(tableDiv);
         }
         
-        // Add unassigned guests section
         const unassigned = getUnassignedGuests();
         if (unassigned.length > 0) {
             const unassignedDiv = document.createElement('div');
@@ -812,7 +809,7 @@
             margin: [0.5, 0.5, 0.5, 0.5],
             filename: `wedding_seating_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, letterRendering: true, useCORS: true },
+            html2canvas: { scale: 2, letterRendering: true },
             jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
         };
         
@@ -837,7 +834,6 @@
         let totalSeated = 0;
         for (const table of tableMap.values()) totalSeated += table.guests.length;
         
-        // Generate all table options from 1 to 32 for dropdowns
         const allTableOptions = Array.from({ length: TOTAL_TABLES }, (_, i) => i + 1);
         
         app.innerHTML = `
@@ -859,7 +855,7 @@
                 <div class="toolbar">
                     <button class="btn" id="saveBtn">💾 Save to Firebase</button>
                     <button class="btn btn-secondary" id="resetBtn">⟳ Reset All</button>
-                    <button class="btn btn-pdf" id="pdfBtn">📄 Export as PDF</button>
+                    <button class="btn btn-pdf" id="pdfBtn">📄 Export PDF</button>
                 </div>
                 
                 <div class="manual-guest-form">
@@ -996,7 +992,7 @@
             }
         }
         
-        // Buttons
+        // Event listeners
         document.getElementById('saveBtn').onclick = saveSeatingToFirebase;
         document.getElementById('resetBtn').onclick = resetAllSeating;
         document.getElementById('pdfBtn').onclick = exportToPDF;
@@ -1034,11 +1030,17 @@
         });
     }
     
+    // Initialize - Load from Firebase FIRST
     async function init() {
         showLoading(true);
+        
+        // Load Firebase guests
         const firebaseGuests = await loadFirebaseGuests();
+        
+        // Load manual guests from localStorage
         loadManualFromStorage();
         
+        // Combine all guests
         allGuests = [...firebaseGuests];
         for (const m of manualGuests) {
             allGuests.push({
@@ -1049,15 +1051,19 @@
             });
         }
         
+        // CRITICAL: Load existing seating from Firebase (preserves all saved assignments)
         const savedSeating = await loadSeatingFromFirebase();
-        if (savedSeating) {
+        if (savedSeating && savedSeating.size > 0) {
             tableMap = savedSeating;
+            console.log("Using existing seating from Firebase with", tableMap.size, "tables");
         } else {
             initTables();
+            console.log("No existing seating found, initialized empty tables");
         }
         
         showLoading(false);
         renderApp();
+        showToast("Loaded from Firebase ✓");
     }
     
     init();
