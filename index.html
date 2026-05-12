@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Wedding Seating Manager | Clean Interface</title>
+    <title>Wedding Seating Manager | CSV + PDF Export</title>
     <style>
         * {
             margin: 0;
@@ -99,6 +99,11 @@
 
         .btn-pdf {
             background: #e74c3c;
+            color: white;
+        }
+
+        .btn-csv {
+            background: #3498db;
             color: white;
         }
 
@@ -655,51 +660,129 @@
         return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
     }
 
+    function escapeCsv(str) {
+        if (!str) return '';
+        if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+            return '"' + str.replace(/"/g, '""') + '"';
+        }
+        return str;
+    }
+
+    // CSV Export Function
+    function exportToCSV() {
+        const rows = [];
+        rows.push(['Table Name', 'Guest Name', 'Group/Source', 'Manual Entry', 'Table Number']);
+        
+        const sorted = Array.from(tableMap.keys()).sort((a,b) => {
+            if (a === BRIDAL_TABLE) return 1;
+            if (b === BRIDAL_TABLE) return -1;
+            return parseInt(a) - parseInt(b);
+        });
+        
+        for (const tid of sorted) {
+            const table = tableMap.get(tid);
+            const tableName = table.name;
+            const tableNumber = tid === BRIDAL_TABLE ? 'Bridal' : tid;
+            
+            if (table.guests.length === 0) {
+                rows.push([tableName, '(empty)', '', '', tableNumber]);
+            } else {
+                for (const guest of table.guests) {
+                    rows.push([
+                        escapeCsv(tableName),
+                        escapeCsv(guest.name),
+                        escapeCsv(guest.group || ''),
+                        guest.isManual ? 'Yes' : 'No',
+                        tableNumber
+                    ]);
+                }
+            }
+        }
+        
+        // Add unassigned guests
+        const unassigned = getUnassignedGuests();
+        if (unassigned.length > 0) {
+            for (const guest of unassigned) {
+                rows.push([
+                    'UNASSIGNED',
+                    escapeCsv(guest.name),
+                    escapeCsv(guest.group || ''),
+                    guest.isManual ? 'Yes' : 'No',
+                    ''
+                ]);
+            }
+        }
+        
+        const csvContent = rows.map(row => row.join(',')).join('\n');
+        const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.setAttribute('download', `wedding_seating_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast("CSV exported successfully!");
+    }
+
+    // PDF Export Function (Portrait)
     async function exportToPDF() {
         showLoading(true);
         
         const pdfContent = document.createElement('div');
-        pdfContent.style.cssText = 'font-family: Georgia, Times New Roman, Times, serif; padding: 40px; background: white;';
+        pdfContent.style.cssText = 'font-family: Georgia, Times New Roman, Times, serif; padding: 30px; background: white;';
         
         let totalSeated = 0;
         for (const table of tableMap.values()) totalSeated += table.guests.length;
         
         pdfContent.innerHTML = `
-            <div style="text-align:center; margin-bottom:30px; border-bottom:2px solid #c9a84c; padding-bottom:20px;">
-                <h1 style="font-size:28px; color:#2c2418;">Daniel & Laura · Wedding Seating Plan</h1>
-                <p style="color:#8b7355;">Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</p>
+            <div style="text-align:center; margin-bottom:25px; border-bottom:2px solid #c9a84c; padding-bottom:15px;">
+                <h1 style="font-size:24px; color:#2c2418;">Daniel & Laura · Wedding Seating Plan</h1>
+                <p style="color:#8b7355; font-size:12px;">Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</p>
             </div>
-            <div style="display:flex; justify-content:space-around; margin-bottom:30px; flex-wrap:wrap;">
-                <div style="text-align:center; padding:10px 20px; background:#faf5ea; border-radius:12px;"><div style="font-size:24px; font-weight:bold; color:#c9a84c;">${allGuests.length}</div><div>Total Guests</div></div>
-                <div style="text-align:center; padding:10px 20px; background:#faf5ea; border-radius:12px;"><div style="font-size:24px; font-weight:bold; color:#c9a84c;">${totalSeated}</div><div>Seated</div></div>
-                <div style="text-align:center; padding:10px 20px; background:#faf5ea; border-radius:12px;"><div style="font-size:24px; font-weight:bold; color:#c9a84c;">${getUnassignedGuests().length}</div><div>Unassigned</div></div>
+            <div style="display:flex; justify-content:space-around; margin-bottom:25px; flex-wrap:wrap;">
+                <div style="text-align:center; padding:8px 16px; background:#faf5ea; border-radius:10px;"><div style="font-size:20px; font-weight:bold; color:#c9a84c;">${allGuests.length}</div><div style="font-size:10px;">Total Guests</div></div>
+                <div style="text-align:center; padding:8px 16px; background:#faf5ea; border-radius:10px;"><div style="font-size:20px; font-weight:bold; color:#c9a84c;">${totalSeated}</div><div style="font-size:10px;">Seated</div></div>
+                <div style="text-align:center; padding:8px 16px; background:#faf5ea; border-radius:10px;"><div style="font-size:20px; font-weight:bold; color:#c9a84c;">${getUnassignedGuests().length}</div><div style="font-size:10px;">Unassigned</div></div>
             </div>
-            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:20px;">
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:15px;">
                 ${Array.from(tableMap.entries()).sort((a,b) => {
                     if (a[0] === BRIDAL_TABLE) return 1;
                     if (b[0] === BRIDAL_TABLE) return -1;
                     return parseInt(a[0]) - parseInt(b[0]);
                 }).map(([tid, table]) => `
-                    <div style="border:1px solid #e8dcc8; border-radius:12px; overflow:hidden; page-break-inside:avoid;">
-                        <div style="background:#faf5ea; padding:10px 12px; font-weight:bold; border-bottom:1px solid #e8dcc8;">${table.name} ${tid === BRIDAL_TABLE ? '⭐' : ''} (${table.guests.length} guests)</div>
-                        <div style="padding:10px 12px; min-height:80px;">
-                            ${table.guests.length === 0 ? '<em>No guests assigned</em>' : 
-                                table.guests.map(g => `<div style="font-size:11px; padding:4px 0; border-bottom:1px dotted #f0e6d8;">• ${escapeHtml(g.name)} ${g.isManual ? '(Manual)' : ''}</div>`).join('')
+                    <div style="border:1px solid #e8dcc8; border-radius:10px; overflow:hidden; page-break-inside:avoid;">
+                        <div style="background:#faf5ea; padding:8px 10px; font-weight:bold; font-size:12px; border-bottom:1px solid #e8dcc8;">${table.name} ${tid === BRIDAL_TABLE ? '⭐' : ''} (${table.guests.length} guests)</div>
+                        <div style="padding:8px 10px; min-height:60px;">
+                            ${table.guests.length === 0 ? '<em style="font-size:10px; color:#bfae8e;">No guests assigned</em>' : 
+                                table.guests.map(g => `<div style="font-size:9px; padding:3px 0; border-bottom:1px dotted #f0e6d8;">• ${escapeHtml(g.name)} ${g.isManual ? '(M)' : ''}</div>`).join('')
                             }
                         </div>
                     </div>
                 `).join('')}
+            </div>
+            ${getUnassignedGuests().length > 0 ? `
+                <div style="margin-top:25px; padding:12px; border:1px solid #e74c3c; border-radius:10px; background:#fef5f5;">
+                    <h3 style="color:#e74c3c; font-size:14px; margin-bottom:8px;">⚠️ Unassigned Guests (${getUnassignedGuests().length})</h3>
+                    <div style="display:flex; flex-wrap:wrap; gap:5px;">
+                        ${getUnassignedGuests().map(g => `<span style="font-size:9px; background:#fff; padding:2px 8px; border-radius:15px;">${escapeHtml(g.name)}</span>`).join('')}
+                    </div>
+                </div>
+            ` : ''}
+            <div style="text-align:center; margin-top:25px; padding-top:12px; border-top:1px solid #e8dcc8; font-size:8px; color:#bfae8e;">
+                <p>✨ Daniel & Laura's Wedding ✨ | Table capacity: ${MIN_PER_TABLE}-${MAX_PER_TABLE} guests per table</p>
             </div>
         `;
         
         document.body.appendChild(pdfContent);
         
         const opt = {
-            margin: [0.5, 0.5, 0.5, 0.5],
+            margin: [0.4, 0.4, 0.4, 0.4],
             filename: `wedding_seating_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
+            html2canvas: { scale: 2, letterRendering: true },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
         };
         
         try {
@@ -744,6 +827,7 @@
                     <button class="btn" id="saveBtn">💾 Save to Firebase</button>
                     <button class="btn btn-secondary" id="resetBtn">⟳ Reset All</button>
                     <button class="btn btn-pdf" id="pdfBtn">📄 Export PDF</button>
+                    <button class="btn btn-csv" id="csvBtn">📊 Export CSV</button>
                 </div>
                 
                 <div class="manual-guest-form">
@@ -865,6 +949,7 @@
         document.getElementById('saveBtn').onclick = saveSeatingToFirebase;
         document.getElementById('resetBtn').onclick = resetAllSeating;
         document.getElementById('pdfBtn').onclick = exportToPDF;
+        document.getElementById('csvBtn').onclick = exportToCSV;
         document.getElementById('addManualBtn').onclick = () => {
             const first = document.getElementById('firstName').value;
             const last = document.getElementById('lastName').value;
